@@ -17,7 +17,7 @@ export default function Playground() {
   // const [value, setValue] = React.useState(null);
 
   return (
-    <Stack justify-content='center' spacing={2} sx={{ width: 300 }}>
+    <Stack spacing={2} sx={{ width: 300 }}>
       <Autocomplete
         // {...defaultProps}
         id="disable-close-on-select"

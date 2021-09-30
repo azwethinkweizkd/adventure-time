@@ -18,7 +18,7 @@ const Home = () => {
           ) : (
             <ProfileList
               profiles={profiles}
-              title="Here's the current number of badges"
+              title="Here's your current number of badges"
             />
           )}
         </div>
