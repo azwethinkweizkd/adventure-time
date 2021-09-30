@@ -45,8 +45,7 @@ const Profile = () => {
   return (
     <div>
       <h2 className="card-header">
-        {profileId ? `${profile.name}'s` : 'Your'} friends have endorsed these
-        skills...
+        {profileId ? `${profile.name}'s` : 'Your'} Input your adventure to earn badges
       </h2>
 
       {profile.skills?.length > 0 && (
