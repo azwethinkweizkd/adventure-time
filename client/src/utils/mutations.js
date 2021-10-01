@@ -43,3 +43,34 @@ export const REMOVE_SKILL = gql`
     }
   }
 `;
+
+export const SAVE_Activity = gql`
+mutation saveActivity($activityData: activityInput!){
+    saveActivity(activityData: $activityData) {
+        _id
+        username
+        email 
+        savedActivities {
+            _id
+            title
+            comments
+
+        }
+    }
+}
+`;
+
+export const REMOVE_Activity = gql`
+mutation removeActivity($activityId: String!){
+    removeActivity(activityId: $activityId) {
+        _id
+        username
+        email 
+        savedActivities {
+            _id
+            title
+            comments
+        }
+    }
+}
+`;
