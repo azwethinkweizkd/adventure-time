@@ -80,6 +80,34 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+
+    saveActivity: async (parent, { activityData }, context) => {
+      if (context.user) {
+          const updatedUser = await Profile.findByIdAndUpdate(
+              { _id: context.user._id },
+              { $push: { savedActivity: activityData } },
+              { new: true }
+          ).populate;
+
+          return updatedUser;
+      }
+
+      throw new AuthenticationError('Error! You need to be logged in to save your activity!');
+  },
+
+  removeActivity: async (parent, args, context) => {
+      if (context.user) {
+          const updatedUser = await Profile.findOneAndUpdate(
+              { _id: context.user._id },
+              { $pull: { savedActivity: { activityId: args.activityId } } },
+              { new: true }
+          );
+
+          return updatedUser;
+      }
+
+      throw new AuthenticationError('Error! Your activity was unable to be deleted!');
+  }
   },
 };
 
