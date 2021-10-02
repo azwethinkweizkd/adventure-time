@@ -16,6 +16,8 @@ import Login from "./pages/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
+import Playground from "./components/SkillForm";
+
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
@@ -54,7 +56,7 @@ function App() {
               <Signup />
             </Route>
             <Route exact path="/me">
-              <Profile />
+              <Playground />
             </Route>
             <Route exact path="/profiles/:profileId">
               <Profile />

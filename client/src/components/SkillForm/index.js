@@ -1,8 +1,9 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import axios from "axios";
 
 export default function Playground() {
   // const defaultProps = {
@@ -16,12 +17,21 @@ export default function Playground() {
 
   // const [value, setValue] = React.useState(null);
 
+  const [parkNames, setParkNames] = useState([]);
+
+  useEffect(() => {
+    axios.get("/natParkSearch").then((res) => {
+      setParkNames(res.data);
+    });
+  }, []);
+
   return (
     <Stack spacing={2} sx={{ width: 300 }}>
       <Autocomplete
         // {...defaultProps}
         id="disable-close-on-select"
         disableCloseOnSelect
+        autoComplete={parkNames}
         options={parkNames}
         renderInput={(params) => (
           <TextField
