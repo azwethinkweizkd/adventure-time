@@ -27,5 +27,11 @@ export const QUERY_ME = gql`
       name
       skills
     }
+    activityCount
+    savedActivities {
+        _id
+        title
+        comments
+    }
   }
 `;
