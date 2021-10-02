@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Badges from '../Badges';
+
 
 const BadgeDashboard = () => {
 
@@ -13,9 +15,10 @@ const BadgeDashboard = () => {
                 <CssBaseline />
                 <Container maxWidth="sm">
                     <Box sx={{ bgcolor: 'lightblue', height: '100vh' }}>
-                    <Typography className="m-0" style={{ fontSize: '1.75rem', fontWeight: '700', color:'#404040' }} align="center">
+                        <Typography className="m-0" style={{ fontSize: '1.75rem', fontWeight: '700', color: '#404040', fontFamily: 'JetBrains Mono' }} align="center">
                             Your Collected Badges
                         </Typography>
+                        <Badges />
                     </Box>
                 </Container>
             </React.Fragment>
