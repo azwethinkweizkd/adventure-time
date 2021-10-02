@@ -1,8 +1,8 @@
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import * as React from "react";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
 export default function Playground() {
   // const defaultProps = {
@@ -22,8 +22,13 @@ export default function Playground() {
         // {...defaultProps}
         id="disable-close-on-select"
         disableCloseOnSelect
+        options={parkNames}
         renderInput={(params) => (
-          <TextField {...params} label="National Park Visited" variant="standard" />
+          <TextField
+            {...params}
+            label="National Park Visited"
+            variant="standard"
+          />
         )}
       />
       <Autocomplete
@@ -40,6 +45,3 @@ export default function Playground() {
     </Stack>
   );
 }
-  
-
-
