@@ -1,8 +1,13 @@
 import React from 'react';
+import BadgeData from './badge.json';
+import { makeStyles } from '@mui/styles';
 import { useParams } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Comments from '../Comments';
@@ -11,7 +16,14 @@ import { REMOVE_ACTIVITY } from '../../utils/mutations';
 
 import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../../utils/queries';
 
+const useStyles = makeStyles({
+    media: {
+        height: 100,
+    },
+});
+
 const Badges = ({ activities, isLoggedInUser = false }) => {
+    const classes = useStyles();
     const { profileId } = useParams();
 
     const { loading, data } = useQuery(
@@ -48,6 +60,31 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
 
     return (
         <div>
+            <>
+                <Grid container spacing={2} justifyContent="center">
+                    {
+                        BadgeData.map((props) => {
+                            return (
+                                <Card sx={{ minWidth: 275, m: 3 }}>
+                                    <CardActionArea>
+                                        <CardMedia
+                                            className={classes.media}
+                                            image={props.image}
+                                        />
+                                        <CardContent>
+                                            <Typography variant="h5" component="h2">
+                                                {props.name}
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                {props.award}
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            )
+                        })
+                    }</Grid>
+            </>
             {/*       <div className="flex-row justify-space-between my-4">
                 {activities &&
                     activities.map((activity) => (
@@ -61,11 +98,11 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                         benevolent
                     </Typography>
                     {/* {profile.comments?.length > 0 && ( */}
-                        <Comments
-                            comments={profile.comments}
-                            isLoggedInUser={!profileId && true}
-                        />
-                   {/*  )} */}
+                    <Comments
+                        comments={profile.comments}
+                        isLoggedInUser={!profileId && true}
+                    />
+                    {/*  )} */}
                 </CardContent>
                 <button
                     className="btn btn-sm btn-danger ml-auto"
