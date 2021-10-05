@@ -14,6 +14,9 @@ export const QUERY_SINGLE_PROFILE = gql`
     profile(profileId: $profileId) {
       _id
       name
+
+      comments
+
     }
   }
 `;
@@ -23,6 +26,9 @@ export const QUERY_ME = gql`
     me {
       _id
       name
+
+      comments
+
     }
   }
 `;

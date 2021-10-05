@@ -17,7 +17,6 @@ export const ADD_SKILL = gql`
     addSkill(profileId: $profileId, skill: $skill) {
       _id
       name
-      skills
     }
   }
 `;
@@ -39,7 +38,15 @@ export const REMOVE_SKILL = gql`
     removeSkill(skill: $skill) {
       _id
       name
-      skills
+    }
+  }
+`;
+
+export const REMOVE_COMMENT = gql`
+  mutation removeComment($comment: String!) {
+    removeComment(comment: $comment) {
+      _id
+      name
     }
   }
 `;
@@ -60,17 +67,11 @@ mutation saveActivity($activityData: activityInput!){
 }
 `;
 
-export const REMOVE_Activity = gql`
-mutation removeActivity($activityId: String!){
-    removeActivity(activityId: $activityId) {
-        _id
-        username
-        email 
-        savedActivities {
-            _id
-            title
-            comments
-        }
-    }
+export const REMOVE_ACTIVITY = gql`
+mutation removeActivity($activity: String!) {
+  removeActivity(activity: $activity) {
+    _id
+    name
+  }
 }
 `;

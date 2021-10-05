@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Badges from '../Badges';
 
+import Badges from '../Badges';
 
 const BadgeDashboard = () => {
 
@@ -18,7 +18,7 @@ const BadgeDashboard = () => {
                         <Typography className="m-0" style={{ fontSize: '1.75rem', fontWeight: '700', color: '#404040', fontFamily: 'JetBrains Mono' }} align="center">
                             Your Collected Badges
                         </Typography>
-                        <Badges />
+                            <Badges />
                     </Box>
                 </Container>
             </React.Fragment>
