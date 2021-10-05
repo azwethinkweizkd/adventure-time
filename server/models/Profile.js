@@ -31,13 +31,6 @@ const profileSchema = new Schema({
       required: true,
     },
   ]
-  /* activities: [
-    {
-      type: String,
-      trim: true,
-    },
-  ],
-  , */
 });
 
 // set up pre-save middleware to create password
