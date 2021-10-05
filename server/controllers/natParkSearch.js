@@ -1,4 +1,3 @@
-const router = require("express").Router();
 require("dotenv").config();
 const apiKey = process.env.NATPARKSAPI_KEY;
 const natParksURL = `https://developer.nps.gov/api/v1/parks?limit=465`;
