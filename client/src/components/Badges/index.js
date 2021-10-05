@@ -27,27 +27,38 @@ const useStyles = makeStyles({
 });
 
 const Badges = ({ activities, isLoggedInUser = false }) => {
-    const classes = useStyles();
-    const { profileId } = useParams();
-
-    const { loading, data } = useQuery(
-        profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
-        {
-            variables: { profileId: profileId },
-        }
-    );
-
-    const profile = data?.me || data?.profile || {};
-
-    const [removeActivity, { error }] = useMutation(REMOVE_ACTIVITY, {
-        update(cache, { data: { removeActivity } }) {
+        const classes = useStyles();
+        const { profileId } = useParams();
+    
+        const { loading, data } = useQuery(
+            profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
+            {
+                variables: { profileId: profileId },
+            }
+        );
+    
+        const profile = data?.me || data?.profile || {};
+    
+        const [removeActivity, { error }] = useMutation(REMOVE_ACTIVITY, {
+            update(cache, { data: { removeActivity } }) {
+                try {
+                    cache.writeQuery({
+                        query: QUERY_ME,
+                        data: { me: removeActivity },
+                    });
+                } catch (e) {
+                    console.error(e);
+                }
+            },
+        });
+    
+        const handleRemoveActivity = async (activity) => {
             try {
-                cache.writeQuery({
-                    query: QUERY_ME,
-                    data: { me: removeActivity },
+                const { data } = await removeActivity({
+                    variables: { activity },
                 });
-            } catch (e) {
-                console.error(e);
+            } catch (err) {
+                console.error(err);
             }
         },
     });
@@ -61,12 +72,6 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
             console.error(err);
         }
     };
-
-    const badgeDisplay = async ({ activity, badges }) => {
-        if (activity.title === badges.name) {
-            return `./utils/${badges.image}`
-        }
-    }
 
     return (
         <div>
