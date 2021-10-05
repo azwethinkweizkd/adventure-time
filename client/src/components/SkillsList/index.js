@@ -38,7 +38,7 @@ const SkillsList = ({ skills, isLoggedInUser = false }) => {
         {skills &&
           skills.map((skill) => (
             <div key={skill} className="col-12 col-xl-6">
-              <div className="card mb-3">
+              {/* <div className="card mb-3">
                 <h4 className="card-header bg-dark text-light p-2 m-0 display-flex align-center">
                   <span>{skill}</span>
                   {isLoggedInUser && (
@@ -50,7 +50,7 @@ const SkillsList = ({ skills, isLoggedInUser = false }) => {
                     </button>
                   )}
                 </h4>
-              </div>
+              </div> */}
             </div>
           ))}
       </div>

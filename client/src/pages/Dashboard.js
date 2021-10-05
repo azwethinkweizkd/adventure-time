@@ -1,7 +1,5 @@
 import React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 import { Redirect, useParams } from 'react-router-dom';
@@ -54,20 +52,9 @@ const Profile = () => {
             <Box>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <BadgeDashboard />
-                    <CommentDashboard />
+                   {/*  <CommentDashboard /> */}
                 </Grid>
             </Box>
-            {/* {profile.skills?.length > 0 && (
-                <BadgeDashboard
-                    skills={profile.skills}
-                    isLoggedInUser={!profileId && true}
-                />
-            )} */}
-
-
-            {/* <div className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-                <SkillForm profileId={profile._id} />
-            </div> */}
         </div >
     );
 };

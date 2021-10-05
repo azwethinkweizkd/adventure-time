@@ -5,10 +5,12 @@ const activitySchema = new Schema({
     type: String,
     required: true,
   },
-  comments: {
+  description: {
     type: String,
     required: true,
   },
 });
 
-module.exports = activitySchema;
+const Activity = model('Activity', activitySchema);
+
+module.exports = Activity;
