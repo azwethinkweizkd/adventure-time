@@ -51,17 +51,6 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                 }
             },
         });
-    
-        const handleRemoveActivity = async (activity) => {
-            try {
-                const { data } = await removeActivity({
-                    variables: { activity },
-                });
-            } catch (err) {
-                console.error(err);
-            }
-        },
-    });
 
     const handleRemoveActivity = async (activity) => {
         try {
