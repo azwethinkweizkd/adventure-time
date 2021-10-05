@@ -27,7 +27,7 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         backgroundColor: 'white',
     }
-});
+});useStyles
 
 const Badges = ({ activities, isLoggedInUser = false }) => {
     const classes = useStyles();
