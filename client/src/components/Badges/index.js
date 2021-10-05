@@ -6,12 +6,11 @@ import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
-import CardActionArea from '@mui/material/CardActionArea';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-// import Comments from '../Comments';
+import Typography from '@mui/material/Typography';
+import Comments from '../Comments';
 
 import { REMOVE_ACTIVITY } from '../../utils/mutations';
 
@@ -61,42 +60,57 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
             } catch (err) {
                 console.error(err);
             }
-        };
+        },
+    });
+
+    const handleRemoveActivity = async (activity) => {
+        try {
+            const { data } = await removeActivity({
+                variables: { activity },
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     return (
         <div>
-            <>
-            <Grid container spacing={2} justifyContent="center">
-                {
-                BadgeData.map((props) => {
-                    return (
-                    <Card className={classes.media} sx={{ minWidth: 275, m: 3 }}>
-                        <Card sx={{ minWidth: 275, m: 3 }}>
-                            <CardActionArea>
-                                <CardMedia
-                                    image={props.image}
-                                    />
-                                <CardContent>
-                                <Typography variant="h5" component="h2">
-                                    {props.name}
-                                </Typography>
-                                <Typography variant="body2">
-                                    {props.award}
-                                </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
+            <Grid container spacing={2}>
+                {/*       <div className="flex-row justify-space-between my-4">
+                {activities &&
+                    activities.map((activity) => (
+                        <div key={activity} className="col-12 col-xl-6"> */}
+                <Card sx={{ minWidth: 275, m: 3 }}>
+                    <CardContent>
+                        <CardMedia
+                            style={{ height: '37vh' }}
+                            /* image={badgeDisplay(activity)} */
+                        />
+                        <Typography variant="h5" component="div">
+                            {/* {activity.title} */}Activities.Title
+                        </Typography>
+                        <Typography variant="body2">
+                            You visited {/* {activity.description} */} Activities.description
+                        </Typography>
+                        {/* {profile.comments?.length > 0 && ( */}
+                        <Comments
+                            comments={profile.comments}
+                            isLoggedInUser={!profileId && true}
+                        />
+                        {/*  )} */}
+                    </CardContent>
+                    <div>
                         <h5>Add Comment</h5>
-                        <TextField className={classes.textField} id="outlined-basic" label="Outlined" variant="outlined" />
-                        <button
+                        <TextField className={classes.textField} id="outlined-basic" variant="outlined" />
+                    </div>
+                    <button
                         className="btn btn-sm btn-danger ml-auto"
-                        /*  onClick={() => handleRemoveActivity(activity)} */
-                        >X
-                        </button>
-                    </Card>
-                    )
-                })
-                }</Grid>
-            </>
+                    /*  onClick={() => handleRemoveActivity(activity)} */
+                    >
+                        X
+                    </button>
+                </Card>
+            </Grid>
         </div>
     );
 };

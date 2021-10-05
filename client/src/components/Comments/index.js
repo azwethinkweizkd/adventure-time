@@ -6,6 +6,9 @@ import { QUERY_ME } from '../../utils/queries';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
 const Comments = ({ comments, isLoggedInUser = false }) => {
@@ -34,47 +37,24 @@ const Comments = ({ comments, isLoggedInUser = false }) => {
 
     return (
         <div>
-            <div className="flex-row justify-space-between my-4">
-                {comments &&
-                    comments.map((comment) => (
-                        <div key={comment} className="col-12 col-xl-6">
-                            <div className="card mb-3">
-                                <h4 className="card-header bg-dark text-light p-2 m-0 display-flex align-center">
-                                    <span>{comment}</span>
-                                    {isLoggedInUser && (
-                                        <button
-                                            className="btn btn-sm btn-danger ml-auto"
-                                            onClick={() => handleRemoveComment(comment)}
-                                        >
-                                            X
-                                        </button>
-                                    )}
-                                </h4>
-                            </div>
-                        </div>
-                    ))}
-            </div>
+            <Card sx={{ minWidth: 275 }} >
+                <CardContent>
+                    <Typography variant="h5" component="div">
+                        {/* {profile.name} */} name
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                        comment
+                    </Typography>
+                </CardContent>
+                <IconButton aria-label="delete"
+                /*  onClick={() => handleRemoveActivity(activity)} */
+                >
+                    <DeleteIcon />
+                </IconButton >
+            </Card>
             {error && (
                 <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
             )}
-            <Card sx={{ minWidth: 275, m: 3}} >
-            <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Word of the Day
-                </Typography>
-                <Typography variant="h5" component="div">
-                    benevolent
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    adjective
-                </Typography>
-                <Typography variant="body2">
-                    well meaning and kindly.
-                    <br />
-                    {'"a benevolent smile"'}
-                </Typography>
-            </CardContent>
-        </Card>
         </div>
     );
 };
