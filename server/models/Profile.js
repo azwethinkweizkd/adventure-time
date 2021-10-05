@@ -21,10 +21,23 @@ const profileSchema = new Schema({
   },
   activities: [
     {
+      type: Schema.Types.ObjectId,
+      ref: "Activity",
+    },
+  ],
+  comments: [
+    {
+      type: String,
+      required: true,
+    },
+  ]
+  /* activities: [
+    {
       type: String,
       trim: true,
     },
   ],
+  , */
 });
 
 // set up pre-save middleware to create password
