@@ -42,6 +42,15 @@ export const REMOVE_SKILL = gql`
   }
 `;
 
+export const REMOVE_COMMENT = gql`
+  mutation removeComment($comment: String!) {
+    removeComment(comment: $comment) {
+      _id
+      name
+    }
+  }
+`;
+
 export const SAVE_Activity = gql`
 mutation saveActivity($activityData: activityInput!){
     saveActivity(activityData: $activityData) {
@@ -58,17 +67,11 @@ mutation saveActivity($activityData: activityInput!){
 }
 `;
 
-export const REMOVE_Activity = gql`
-mutation removeActivity($activityId: String!){
-    removeActivity(activityId: $activityId) {
-        _id
-        username
-        email 
-        savedActivities {
-            _id
-            title
-            comments
-        }
-    }
+export const REMOVE_ACTIVITY = gql`
+mutation removeActivity($activity: String!) {
+  removeActivity(activity: $activity) {
+    _id
+    name
+  }
 }
 `;

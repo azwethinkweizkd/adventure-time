@@ -81,6 +81,17 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
 
+    removeComment: async (parent, { comment }, context) => {
+      if (context.user) {
+        return Profile.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { comments: comment } },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
     saveActivity: async (parent, { activityData }, context) => {
       if (context.user) {
           const updatedUser = await Profile.findByIdAndUpdate(
