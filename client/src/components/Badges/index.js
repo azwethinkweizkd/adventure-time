@@ -62,7 +62,11 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
         }
     };
 
-    
+    const badgeDisplay = async ({ activity, badges }) => {
+        if (activity.title === badges.name) {
+            return `./utils/${badges.image}`
+        }
+    }
 
     return (
         <div>
