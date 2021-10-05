@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/client';
 
 import BadgeDashboard from '../components/BadgeDashboard';
 import CommentDashboard from '../components/CommentDashboard';
+import Badges from '../components/Badges';
 
 import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../utils/queries';
 
@@ -50,10 +51,11 @@ const Profile = () => {
                 {profileId ? `${profile.name}'s` : 'Your'} Dashboard
             </h2>
             <Box>
-                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Badges />
+                {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <BadgeDashboard />
-                   {/*  <CommentDashboard /> */}
-                </Grid>
+                    <CommentDashboard />
+                </Grid> */}
             </Box>
         </div >
     );

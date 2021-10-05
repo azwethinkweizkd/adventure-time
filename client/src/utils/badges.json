@@ -16,19 +16,19 @@
     "image": "./images/hydration_icon.png"
   },
   {
-    "name": "Badge 4",
+    "name": "Badge 5",
     "image": "./images/lifesaver_icon.png"
   },
   {
-    "name": "Badge 5",
+    "name": "Badge 6",
     "image": "./images/mountain_sport_icon.png"
   },
   {
-    "name": "Badge 6",
+    "name": "Badge 7",
     "image": "./images/soar_icon.png"
   },
   {
-    "name": "Badge 7",
+    "name": "Badge 8",
     "image": "./images/winter_icon.png"
   }
 ]
