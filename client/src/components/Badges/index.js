@@ -12,6 +12,12 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Comments from '../Comments';
 
+const useStyles = makeStyles({
+    media: {
+        height: 100,
+      },
+});
+
 import { REMOVE_ACTIVITY } from '../../utils/mutations';
 
 import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../../utils/queries';
@@ -58,6 +64,9 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
         }
     };
 
+export default function Badges() {
+    console.log(Badges);
+    const classes = useStyles();
     return (
         <div>
             <>
@@ -120,5 +129,3 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
         </div>
     );
 };
-
-export default Badges;
