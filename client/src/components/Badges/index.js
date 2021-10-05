@@ -12,12 +12,6 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Comments from '../Comments';
 
-const useStyles = makeStyles({
-    media: {
-        height: 100,
-      },
-});
-
 import { REMOVE_ACTIVITY } from '../../utils/mutations';
 
 import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../../utils/queries';
@@ -29,44 +23,40 @@ const useStyles = makeStyles({
 });
 
 const Badges = ({ activities, isLoggedInUser = false }) => {
-    const classes = useStyles();
-    const { profileId } = useParams();
-
-    const { loading, data } = useQuery(
-        profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
-        {
-            variables: { profileId: profileId },
-        }
-    );
-
-    const profile = data?.me || data?.profile || {};
-
-    const [removeActivity, { error }] = useMutation(REMOVE_ACTIVITY, {
-        update(cache, { data: { removeActivity } }) {
-            try {
-                cache.writeQuery({
-                    query: QUERY_ME,
-                    data: { me: removeActivity },
-                });
-            } catch (e) {
-                console.error(e);
+        const classes = useStyles();
+        const { profileId } = useParams();
+    
+        const { loading, data } = useQuery(
+            profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
+            {
+                variables: { profileId: profileId },
             }
-        },
-    });
-
-    const handleRemoveActivity = async (activity) => {
-        try {
-            const { data } = await removeActivity({
-                variables: { activity },
-            });
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-export default function Badges() {
-    console.log(Badges);
-    const classes = useStyles();
+        );
+    
+        const profile = data?.me || data?.profile || {};
+    
+        const [removeActivity, { error }] = useMutation(REMOVE_ACTIVITY, {
+            update(cache, { data: { removeActivity } }) {
+                try {
+                    cache.writeQuery({
+                        query: QUERY_ME,
+                        data: { me: removeActivity },
+                    });
+                } catch (e) {
+                    console.error(e);
+                }
+            },
+        });
+    
+        const handleRemoveActivity = async (activity) => {
+            try {
+                const { data } = await removeActivity({
+                    variables: { activity },
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        };
     return (
         <div>
             <>
@@ -129,3 +119,5 @@ export default function Badges() {
         </div>
     );
 };
+
+export default Badges;
