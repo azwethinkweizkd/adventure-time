@@ -4,19 +4,9 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import axios from "axios";
+import { category, skiResorts } from "../../utils/allCategories";
 
 export default function Playground() {
-  // const defaultProps = {
-  //   options: top100Films,
-  //   getOptionLabel: (option) => option.title,
-  // };
-
-  // const flatProps = {
-  //   options: top100Films.map((option) => option.title),
-  // };
-
-  // const [value, setValue] = React.useState(null);
-
   const [parkNames, setParkNames] = useState([]);
 
   useEffect(() => {
@@ -25,26 +15,28 @@ export default function Playground() {
     });
   }, []);
 
+  const options = [].concat(parkNames, skiResorts);
+
   return (
     <Stack spacing={2} sx={{ width: 300 }}>
       <Autocomplete
-        // {...defaultProps}
         id="disable-close-on-select"
         disableCloseOnSelect
-        autoComplete={parkNames}
-        options={parkNames}
+        autoComplete={(parkNames, skiResorts)}
+        options={options}
         renderInput={(params) => (
           <TextField
             {...params}
-            label="National Park Visited"
+            label="National Park or Ski Resort Visited"
             variant="standard"
           />
         )}
       />
       <Autocomplete
-        // {...defaultProps}
         id="clear-on-escape"
         clearOnEscape
+        autoComplete={category}
+        options={category}
         renderInput={(params) => (
           <TextField {...params} label="Activities" variant="standard" />
         )}

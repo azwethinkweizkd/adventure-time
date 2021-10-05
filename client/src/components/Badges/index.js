@@ -1,16 +1,19 @@
 import React from 'react';
-import BadgeData from './badge.json';
+import badgeData from '../../utils/badges.json';
 import { makeStyles } from '@mui/styles';
 import { useParams } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
 import Card from '@mui/material/Card';
-import Grid from '@mui/material/Grid';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Comments from '../Comments';
+import CommentForm from '../CommentForm';
 
 import { REMOVE_ACTIVITY } from '../../utils/mutations';
 
@@ -62,9 +65,9 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
         }
     };
 
-    const badgeDisplay = async ({ activity, badges }) => {
-        if (activity.title === badges.name) {
-            return `./utils/${badges.image}`
+    const badgeDisplay = async (activity, badgeData) => {
+        if (activity.title === badgeData.name) {
+            return `${badgeData.image}`
         }
     }
 
@@ -75,11 +78,17 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                 {activities &&
                     activities.map((activity) => (
                         <div key={activity} className="col-12 col-xl-6"> */}
-                <Card sx={{ minWidth: 275, m: 3 }}>
+                <Card sx={{ minWidth: 275, m: 3 }} >
+                    {isLoggedInUser && (
+                        <IconButton aria-label="delete">
+                            <DeleteIcon
+                               /*  onClick={() => handleRemoveActivity(activity)} */ />
+                        </IconButton >
+                    )}
                     <CardContent>
                         <CardMedia
                             style={{ height: '37vh' }}
-                            /* image={badgeDisplay(activity)} */
+                        /* image={badgeDisplay(activity)} */
                         />
                         <Typography variant="h5" component="div">
                             {/* {activity.title} */}Activities.Title
@@ -87,23 +96,14 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                         <Typography variant="body2">
                             You visited {/* {activity.description} */} Activities.description
                         </Typography>
-                        {/* {profile.comments?.length > 0 && ( */}
-                        <Comments
-                            comments={profile.comments}
-                            isLoggedInUser={!profileId && true}
-                        />
-                        {/*  )} */}
+                        {profile.comments?.length > 0 && (
+                            <Comments
+                                comments={profile.comments}
+                                isLoggedInUser={!profileId && true}
+                            />
+                        )}
                     </CardContent>
-                    <div>
-                        <h5>Add Comment</h5>
-                        <TextField className={classes.textField} id="outlined-basic" variant="outlined" />
-                    </div>
-                    <button
-                        className="btn btn-sm btn-danger ml-auto"
-                    /*  onClick={() => handleRemoveActivity(activity)} */
-                    >
-                        X
-                    </button>
+                    <CommentForm profileId={profile._id} />
                 </Card>
             </Grid>
         </div>

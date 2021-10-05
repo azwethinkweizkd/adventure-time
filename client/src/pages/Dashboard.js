@@ -1,12 +1,9 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 
 import { Redirect, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import BadgeDashboard from '../components/BadgeDashboard';
-import CommentDashboard from '../components/CommentDashboard';
 import Badges from '../components/Badges';
 
 import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../utils/queries';
@@ -51,11 +48,9 @@ const Profile = () => {
                 {profileId ? `${profile.name}'s` : 'Your'} Dashboard
             </h2>
             <Box>
-                <Badges />
-                {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <BadgeDashboard />
-                    <CommentDashboard />
-                </Grid> */}
+                <Badges 
+                comments={profile.comments}
+                isLoggedInUser={!profileId && true}/>
             </Box>
         </div >
     );
