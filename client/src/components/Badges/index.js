@@ -1,5 +1,4 @@
 import React from 'react';
-import BadgeData from './badge.json';
 import { makeStyles } from '@mui/styles';
 import { useParams } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
