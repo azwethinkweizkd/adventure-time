@@ -1,30 +1,46 @@
 import React from 'react';
+import BadgeData from './badge.json';
+import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-const Badges = () => {
+const useStyles = makeStyles({
+    media: {
+        height: 100,
+      },
+});
 
+export default function Badges() {
+    console.log(Badges);
+    const classes = useStyles();
     return (
+        <>
+    <Grid container spacing={2} justifyContent="center">
+    {
+    BadgeData.map((props) => {
+    return (        
         <Card sx={{ minWidth: 275, m: 3 }}>
+            <CardActionArea>
+                <CardMedia
+                    className={classes.media}
+                    image={props.image}
+                    />
             <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Word of the Day
-                </Typography>
-                <Typography variant="h5" component="div">
-                    benevolent
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    adjective
+                <Typography variant="h5" component="h2">
+                    {props.name}
                 </Typography>
                 <Typography variant="body2">
-                    well meaning and kindly.
-                    <br />
-                    {'"a benevolent smile"'}
+                    {props.award}
                 </Typography>
             </CardContent>
+            </CardActionArea>
         </Card>
+    )})
+    }</Grid>
+        </>
     );
 };
-
-export default Badges;
