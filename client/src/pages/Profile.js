@@ -3,7 +3,6 @@ import React from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import ActivitiesList from '../components/ActivitiesList';
 import ActivityForm from '../components/ActivityForm';
 
 import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../utils/queries';
@@ -47,14 +46,6 @@ const Profile = () => {
       <h2 className="card-header">
         Input your adventure to earn badges
       </h2>
-
-{/*       {profile.activities?.length > 0 && (
-        <ActivitiesList
-          skills={profile.activities}
-          isLoggedInUser={!profileId && true}
-        />
-      )} */}
-
       <div className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
         <ActivityForm profileId={profile._id} />
       </div>

@@ -12,11 +12,11 @@ const Header = () => {
     <header className="Header text-dark mb-5 py5 display-flex align-center">
       <div className="container flex-column justify-space-between-lg justify-center align-center text-center">
         <Link className="text-dark" to="/">
-          <h1 className="m-0" style={{ fontSize: '3rem', color: 'black' }}>
+          <h1 className="m-0" style={{ fontSize: '3rem', color: '#212121' }}>
             Adventure Time
           </h1>
         </Link>
-        <p className="m-0" style={{ fontSize: '1.75rem', fontWeight: '700', color:'white' }}>
+        <p className="m-0" style={{ fontSize: '1.75rem', fontWeight: '700', color:'#fff9c4' }}>
           Start your National Parks Adventure today
         </p>
         <div>

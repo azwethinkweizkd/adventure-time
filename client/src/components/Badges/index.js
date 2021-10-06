@@ -19,18 +19,7 @@ import { REMOVE_ACTIVITY } from '../../utils/mutations';
 
 import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../../utils/queries';
 
-const useStyles = makeStyles({
-    media: {
-        backgroundColor: 'gray',
-    },
-    textField: {
-        justifyContent: 'center',
-        backgroundColor: 'white',
-    }
-});useStyles
-
 const Badges = ({ activities, isLoggedInUser = false }) => {
-    const classes = useStyles();
     const { profileId } = useParams();
 
     const { loading, data } = useQuery(
@@ -78,7 +67,7 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                 {activities &&
                     activities.map((activity) => (
                         <div key={activity} className="col-12 col-xl-6"> */}
-                <Card sx={{ minWidth: 275, m: 3 }} >
+                <Card sx={{ minWidth: 275, m: 3, backgroundColor: '#b2dfdb' }} >
                     {isLoggedInUser && (
                         <IconButton aria-label="delete">
                             <DeleteIcon

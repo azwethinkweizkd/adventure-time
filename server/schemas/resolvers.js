@@ -62,7 +62,7 @@ const resolvers = {
       // If user attempts to execute this mutation and isn't logged in, throw an error
       throw new AuthenticationError('You need to be logged in!');
     },
-    
+
     // Set up mutation so a logged in user can only remove their profile and no one else's
     removeProfile: async (parent, args, context) => {
       if (context.user) {
@@ -84,31 +84,31 @@ const resolvers = {
 
     saveActivity: async (parent, { activityData }, context) => {
       if (context.user) {
-          const updatedUser = await Profile.findByIdAndUpdate(
-              { _id: context.user._id },
-              { $push: { savedActivity: activityData } },
-              { new: true }
-          ).populate;
+        const updatedUser = await Profile.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { savedActivity: activityData } },
+          { new: true }
+        ).populate;
 
-          return updatedUser;
+        return updatedUser;
       }
 
       throw new AuthenticationError('Error! You need to be logged in to save your activity!');
-  },
+    },
 
-  removeActivity: async (parent, args, context) => {
+    removeActivity: async (parent, args, context) => {
       if (context.user) {
-          const updatedUser = await Profile.findOneAndUpdate(
-              { _id: context.user._id },
-              { $pull: { savedActivity: { activityId: args.activityId } } },
-              { new: true }
-          );
+        const updatedUser = await Profile.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedActivity: { activityId: args.activityId } } },
+          { new: true }
+        );
 
-          return updatedUser;
+        return updatedUser;
       }
 
       throw new AuthenticationError('Error! Your activity was unable to be deleted!');
-  }
+    }
   },
 };
 
