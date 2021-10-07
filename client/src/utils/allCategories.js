@@ -1,14 +1,15 @@
 const category = [
-  { label: "camping" },
-  { label: "hiking" },
-  { label: "trail running" },
-  { label: "skiing" },
-  { label: "snowboarding" },
-  { label: "surfing" },
-  { label: "kayaking" },
-  { label: "snorkeling" },
-  { label: "skydiving" },
-  { label: "rock climbing" },
+  { label: 'Walking' },
+  { label: "Camping" },
+  { label: "Hiking" },
+  { label: "Trail running" },
+  { label: "Skiing" },
+  { label: "Snowboarding" },
+  { label: "Surfing" },
+  { label: "Kayaking" },
+  { label: "Snorkeling" },
+  { label: "Skydiving" },
+  { label: "Rock climbing" },
 ];
 
 const skiResorts = [
