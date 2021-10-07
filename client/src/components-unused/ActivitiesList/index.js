@@ -1,16 +1,16 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
 
-import { REMOVE_SKILL } from '../../utils/mutations';
+import { REMOVE_ACTIVITY } from '../../utils/mutations';
 import { QUERY_ME } from '../../utils/queries';
 
-const SkillsList = ({ skills, isLoggedInUser = false }) => {
-  const [removeSkill, { error }] = useMutation(REMOVE_SKILL, {
-    update(cache, { data: { removeSkill } }) {
+const ActivitiesList = ({ activities, isLoggedInUser = false }) => {
+  const [removeActivity, { error }] = useMutation(REMOVE_ACTIVITY, {
+    update(cache, { data: { removeActivity } }) {
       try {
         cache.writeQuery({
           query: QUERY_ME,
-          data: { me: removeSkill },
+          data: { me: removeActivity },
         });
       } catch (e) {
         console.error(e);
@@ -18,39 +18,39 @@ const SkillsList = ({ skills, isLoggedInUser = false }) => {
     },
   });
 
-  const handleRemoveSkill = async (skill) => {
+  const handleRemoveActivity = async (activity) => {
     try {
-      const { data } = await removeSkill({
-        variables: { skill },
+      const { data } = await removeActivity({
+        variables: { activity },
       });
     } catch (err) {
       console.error(err);
     }
   };
 
-  if (!skills.length) {
-    return <h3>No Skills Yet</h3>;
+  if (!activities.length) {
+    return <h3>No activities Yet</h3>;
   }
 
   return (
     <div>
       <div className="flex-row justify-space-between my-4">
-        {skills &&
-          skills.map((skill) => (
-            <div key={skill} className="col-12 col-xl-6">
-              {/* <div className="card mb-3">
+        {activities &&
+          activities.map((activity) => (
+            <div key={activity} className="col-12 col-xl-6">
+              <div className="card mb-3">
                 <h4 className="card-header bg-dark text-light p-2 m-0 display-flex align-center">
-                  <span>{skill}</span>
+                  <span>{activity}</span>
                   {isLoggedInUser && (
                     <button
                       className="btn btn-sm btn-danger ml-auto"
-                      onClick={() => handleRemoveSkill(skill)}
+                      onClick={() => handleRemoveActivity(activity)}
                     >
                       X
                     </button>
                   )}
                 </h4>
-              </div> */}
+              </div>
             </div>
           ))}
       </div>
@@ -61,4 +61,4 @@ const SkillsList = ({ skills, isLoggedInUser = false }) => {
   );
 };
 
-export default SkillsList;
+export default ActivitiesList;

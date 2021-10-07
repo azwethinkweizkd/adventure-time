@@ -5,6 +5,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { category, skiResorts } from "../../utils/allCategories";
+
 export default function Playground() {
   const [parkNames, setParkNames] = useState([]);
 

@@ -57,7 +57,7 @@ function App() {
               <Profile />
             </Route>
             <Route exact path="/profiles/:profileId">
-              <Profile />
+              <Dashboard />
             </Route>
             <Route exact path="/dashboard">
               <Dashboard />

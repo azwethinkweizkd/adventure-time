@@ -8,7 +8,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
-import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
 const Comments = ({ comments, isLoggedInUser = false }) => {
@@ -37,21 +36,27 @@ const Comments = ({ comments, isLoggedInUser = false }) => {
 
     return (
         <div>
-            <Card sx={{ minWidth: 275 }} >
-                <CardContent>
-                    <Typography variant="h5" component="div">
-                        {/* {profile.name} */} name
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        comment
-                    </Typography>
-                </CardContent>
-                <IconButton aria-label="delete"
-                /*  onClick={() => handleRemoveActivity(activity)} */
-                >
-                    <DeleteIcon />
-                </IconButton >
-            </Card>
+            {comments &&
+                comments.map((comment) => (
+                    <div key={comment} className="col-12 col-xl-6">
+                        <Card sx={{ minWidth: 275, backgroundColor: '#90caf9', m:.5 }} >
+                            <CardContent>
+                                <Typography variant="h5" component="div">
+                                    {/* {profile.name} */}
+                                </Typography>
+                                <Typography color="text.secondary">
+                                    {comment}
+                                </Typography>
+                            </CardContent>
+                            {isLoggedInUser && (
+                            <IconButton aria-label="delete">
+                                <DeleteIcon 
+                                onClick={() => handleRemoveComment(comment)}/>
+                            </IconButton >
+                            )}
+                        </Card>
+                    </div>
+                ))}
             {error && (
                 <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
             )}

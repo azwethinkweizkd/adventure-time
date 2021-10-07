@@ -1,34 +1,42 @@
 [
   {
-    "name": "Badge 1",
+    "name": "trail running",
     "image": "./images/done_icon.png"
   },
   {
-    "name": "Badge 2",
+    "name": "camping",
     "image": "./images/fire_olympic_icon.png"
   },
   {
-    "name": "Badge 3",
+    "name": "hiking",
     "image": "./images/hiking_icon.png"
   },
   {
-    "name": "Badge 4",
+    "name": "kayaking",
     "image": "./images/hydration_icon.png"
   },
   {
-    "name": "Badge 5",
+    "name": "surfing",
     "image": "./images/lifesaver_icon.png"
   },
   {
-    "name": "Badge 6",
+    "name": "snorkeling",
+    "image": "./images/lifesaver_icon.png"
+  },
+  {
+    "name": "rock climbing",
     "image": "./images/mountain_sport_icon.png"
   },
   {
-    "name": "Badge 7",
+    "name": "skydiving",
     "image": "./images/soar_icon.png"
   },
   {
-    "name": "Badge 8",
+    "name": "snowboarding",
+    "image": "./images/winter_icon.png"
+  },
+  {
+    "name": "skiing",
     "image": "./images/winter_icon.png"
   }
 ]
