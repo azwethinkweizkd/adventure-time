@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const natParkSearch = require("./natParkSearch");
-router.use("/users", natParkSearch);
+const natParkNames = require("./natParkSearch");
+
+router.get("/natParkSearch", natParkNames);
 
 module.exports = router;

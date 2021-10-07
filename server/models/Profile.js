@@ -19,12 +19,18 @@ const profileSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  skills: [
+  activities: [
     {
-      type: String,
-      trim: true,
+      type: Schema.Types.ObjectId,
+      ref: "Activity",
     },
   ],
+  comments: [
+    {
+      type: String,
+      required: true,
+    },
+  ]
 });
 
 // set up pre-save middleware to create password

@@ -6,12 +6,25 @@ const typeDefs = gql`
     name: String
     email: String
     password: String
-    skills: [String]!
+    activities: [Activity]
+    comments: [String!]
   }
 
   type Auth {
     token: ID!
     profile: Profile
+  }
+
+  type Activity {
+    _id: ID
+    title: String
+    description: String
+}
+
+  input activityInput {
+    _id: ID
+    title: String
+    description: String
   }
 
   type Query {
@@ -24,10 +37,11 @@ const typeDefs = gql`
   type Mutation {
     addProfile(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-
-    addSkill(profileId: ID!, skill: String!): Profile
+    saveActivity(activityData: activityInput!): Profile
+    removeActivity(activityId: ID): Profile 
     removeProfile: Profile
-    removeSkill(skill: String!): Profile
+    addComment(profileId: ID!, comment: String!): Profile
+    removeComment(comment: String!): Profile
   }
 `;
 

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "trail running",
+    "image": "./images/done_icon.png"
+  },
+  {
+    "name": "camping",
+    "image": "./images/fire_olympic_icon.png"
+  },
+  {
+    "name": "hiking",
+    "image": "./images/hiking_icon.png"
+  },
+  {
+    "name": "kayaking",
+    "image": "./images/hydration_icon.png"
+  },
+  {
+    "name": "surfing",
+    "image": "./images/lifesaver_icon.png"
+  },
+  {
+    "name": "snorkeling",
+    "image": "./images/lifesaver_icon.png"
+  },
+  {
+    "name": "rock climbing",
+    "image": "./images/mountain_sport_icon.png"
+  },
+  {
+    "name": "skydiving",
+    "image": "./images/soar_icon.png"
+  },
+  {
+    "name": "snowboarding",
+    "image": "./images/winter_icon.png"
+  },
+  {
+    "name": "skiing",
+    "image": "./images/winter_icon.png"
+  }
+]

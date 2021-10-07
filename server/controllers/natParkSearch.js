@@ -1,22 +1,21 @@
 const router = require("express").Router();
 require("dotenv").config();
 const apiKey = process.env.NATPARKSAPI_KEY;
-const natParksURL = `https://developer.nps.gov/api/v1/parks?limit=500`;
+const natParksURL = `https://developer.nps.gov/api/v1/parks?limit=465`;
 const axios = require("axios");
 
-async function getParks() {
+async function getParks(req, res) {
   try {
     const response = await axios.get(natParksURL, {
       headers: {
         "X-Api-Key": apiKey,
       },
     });
-    console.log(response.data);
+
+    res.json(response.data.data.map((park) => park.fullName));
   } catch (e) {
     console.error(e);
   }
 }
 
-getParks();
-
-module.exports = router;
+module.exports = getParks;
