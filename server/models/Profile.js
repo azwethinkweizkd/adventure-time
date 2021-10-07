@@ -21,8 +21,7 @@ const profileSchema = new Schema({
   },
   activities: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Activity",
+      type: Object,
     },
   ],
   comments: [

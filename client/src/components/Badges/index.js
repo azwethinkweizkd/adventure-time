@@ -63,37 +63,41 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
     return (
         <div>
             <Grid container spacing={2}>
-                {/*       <div className="flex-row justify-space-between my-4">
-                {activities &&
-                    activities.map((activity) => (
-                        <div key={activity} className="col-12 col-xl-6"> */}
-                <Card sx={{ minWidth: 275, m: 3, backgroundColor: '#b2dfdb' }} >
-                    {isLoggedInUser && (
-                        <IconButton aria-label="delete">
-                            <DeleteIcon
-                               /*  onClick={() => handleRemoveActivity(activity)} */ />
-                        </IconButton >
-                    )}
-                    <CardContent>
-                        <CardMedia
-                            style={{ height: '37vh' }}
-                        /* image={badgeDisplay(activity)} */
-                        />
-                        <Typography variant="h5" component="div">
-                            {/* {activity.title} */}Activities.Title
-                        </Typography>
-                        <Typography variant="body2">
-                            You visited {/* {activity.description} */} Activities.description
-                        </Typography>
-                        {profile.comments?.length > 0 && (
-                            <Comments
-                                comments={profile.comments}
-                                isLoggedInUser={!profileId && true}
-                            />
+                <div className="flex-row justify-space-between my-4">
+                    {activities &&
+                        activities.map((activityData) => (
+                            <div key={activityData} className="col-12 col-xl-6">
+                                <Card sx={{ minWidth: 275, m: 3, backgroundColor: '#b2dfdb' }} >
+                                    {isLoggedInUser && (
+                                        <IconButton aria-label="delete">
+                                            <DeleteIcon
+                               /*  onClick={() => handleRemoveActivity(activityData)} */ />
+                                        </IconButton >
+                                    )}
+                                    <CardContent>
+                                        <CardMedia
+                                            style={{ height: '37vh' }}
+                                        /* image={badgeDisplay(activity)} */
+                                        />
+                                        <Typography variant="h5" component="div">
+                                            {activityData.title}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            You visited {/* {activity.description} */} Activities.description
+                                        </Typography>
+                                        {profile.comments?.length > 0 && (
+                                            <Comments
+                                                comments={profile.comments}
+                                                isLoggedInUser={!profileId && true}
+                                            />
+                                        )}
+                                    </CardContent>
+                                    <CommentForm profileId={profile._id} />
+                                </Card>
+                            </div>
+                        )
                         )}
-                    </CardContent>
-                    <CommentForm profileId={profile._id} />
-                </Card>
+                </div>
             </Grid>
         </div>
     );
