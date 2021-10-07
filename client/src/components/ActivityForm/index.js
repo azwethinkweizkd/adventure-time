@@ -18,7 +18,7 @@ export default function Playground() {
   const options = [].concat(parkNames, skiResorts);
 
   return (
-    <Stack spacing={2} sx={{ width: 300 }}>
+    <Stack spacing={2}>
       <Autocomplete
         id="disable-close-on-select"
         disableCloseOnSelect

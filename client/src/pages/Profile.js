@@ -46,7 +46,7 @@ const Profile = () => {
       <h2 className="card-header">
         Input your adventure to earn badges
       </h2>
-      <div className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+      <div className="my-4 p-4">
         <ActivityForm profileId={profile._id} />
       </div>
     </div>
