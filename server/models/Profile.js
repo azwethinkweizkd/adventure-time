@@ -25,12 +25,6 @@ const profileSchema = new Schema({
       ref: 'Activity'
     },
   ],
-  comments: [
-    {
-      type: String,
-      required: true,
-    },
-  ]
 });
 
 // set up pre-save middleware to create password

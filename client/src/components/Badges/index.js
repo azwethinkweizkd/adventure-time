@@ -43,17 +43,20 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
     });
 
     const handleRemoveActivity = async (activityId) => {
+       console.log(activityId)
         try {
             const { data } = await removeActivity({
-                variables: { activityId },
+
+                variables: {  activityId: activityId },
             });
         } catch (err) {
+            console.error("wont remove");
             console.error(err);
         }
     };
 
-    const badgeDisplay = async (activity) => {
-        console.log(badgeData)
+    const badgeDisplay = (activity) => {
+    
         for (let i = 0; i < badgeData.length; i++) {
             const element = badgeData[i];
             if (activity.title === element.name) {
@@ -62,7 +65,8 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
             
         }
     }
-
+    // console.log(activities)
+ 
     return (
         <div>
             <Grid container spacing={2}>
@@ -72,8 +76,8 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                             <div key={activityData.title} className="col-12 col-xl-6">
                                 <Card sx={{ minWidth: 275, m: 3, backgroundColor: '#b2dfdb' }} >
                                     {isLoggedInUser && (
-                                        <IconButton aria-label="delete">
-                                            <DeleteIcon
+                                        <IconButton aria-label="delete" data-id={activityData._id}>
+                                            <DeleteIcon id = {activityData._id}
                                         onClick={() => handleRemoveActivity(activityData._id)} />
                                         </IconButton>
                                     )}
