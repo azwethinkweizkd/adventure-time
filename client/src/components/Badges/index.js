@@ -42,10 +42,10 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
         },
     });
 
-    const handleRemoveActivity = async (activity) => {
+    const handleRemoveActivity = async (activityId) => {
         try {
             const { data } = await removeActivity({
-                variables: { activity },
+                variables: { activityId },
             });
         } catch (err) {
             console.error(err);
@@ -74,13 +74,10 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                                     {isLoggedInUser && (
                                         <IconButton aria-label="delete">
                                             <DeleteIcon
-                               /*  onClick={() => handleRemoveActivity(activityData)} */ />
+                                        onClick={() => handleRemoveActivity(activityData._id)} />
                                         </IconButton>
                                     )}
                                     <CardContent>
-                                    <div>
-                                    hello world
-                                    </div>
                                         <CardMedia
                                             style={{ height: '37vh' }}
                                         image={badgeDisplay(activityData)} 
@@ -89,7 +86,7 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                                             {activityData.title}
                                         </Typography>
                                         <Typography variant="body2">
-                                            You visited {activityData.description} Activities.description
+                                            You visited {activityData.description}
                                         </Typography>
                                         {profile.comments?.length > 0 && (
                                             <Comments
