@@ -1,46 +1,46 @@
 [
   {
     "name": "Walking",
-    "image": "./images/Badges_Daily.png"
+    "image": "./badges/Badges_Daily.png"
   },
   {
     "name": "Trail running",
-    "image": "./images/done_icon.png"
+    "image": "./badges/done_icon.png"
   },
   {
     "name": "Camping",
-    "image": "./images/fire_olympic_icon.png"
+    "image": "./badges/fire_olympic_icon.png"
   },
   {
     "name": "Hiking",
-    "image": "./images/hiking_icon.png"
+    "image": "./badges/hiking_icon.png"
   },
   {
     "name": "Kayaking",
-    "image": "./images/hydration_icon.png"
+    "image": "./badges/hydration_icon.png"
   },
   {
     "name": "Surfing",
-    "image": "./images/lifesaver_icon.png"
+    "image": "./badges/lifesaver_icon.png"
   },
   {
     "name": "Snorkeling",
-    "image": "./images/lifesaver_icon.png"
+    "image": "./badges/lifesaver_icon.png"
   },
   {
     "name": "Rock climbing",
-    "image": "./images/mountain_sport_icon.png"
+    "image": "./badges/mountain_sport_icon.png"
   },
   {
     "name": "Skydiving",
-    "image": "./images/soar_icon.png"
+    "image": "./badges/soar_icon.png"
   },
   {
     "name": "Snowboarding",
-    "image": "./images/winter_icon.png"
+    "image": "./badges/winter_icon.png"
   },
   {
     "name": "Skiing",
-    "image": "./images/winter_icon.png"
+    "image": "./badges/winter_icon.png"
   }
 ]

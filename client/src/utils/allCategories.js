@@ -1,14 +1,14 @@
 const category = [
-  "camping",
-  "hiking",
-  "trail running",
-  "skiing",
-  "snowboarding",
-  "surfing",
-  "kayaking",
-  "snorkeling",
-  "skydiving",
-  "rock climbing",
+  "Camping",
+  "Hiking",
+  "Trail running",
+  "Skiing",
+  "Snowboarding",
+  "Surfing",
+  "Kayaking",
+  "Snorkeling",
+  "Skydiving",
+  "Rock climbing",
 ];
 
 const skiResorts = [

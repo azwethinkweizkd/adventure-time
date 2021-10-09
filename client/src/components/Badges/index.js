@@ -1,6 +1,5 @@
 import React from 'react';
 import badgeData from '../../utils/badges.json';
-import { makeStyles } from '@mui/styles';
 import { useParams } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
@@ -10,7 +9,6 @@ import CardContent from '@mui/material/CardContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Comments from '../Comments';
 import CommentForm from '../CommentForm';
@@ -54,9 +52,14 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
         }
     };
 
-    const badgeDisplay = async (activity, badgeData) => {
-        if (activity.title === badgeData.name) {
-            return `${badgeData.image}`
+    const badgeDisplay = async (activity) => {
+        console.log(badgeData)
+        for (let i = 0; i < badgeData.length; i++) {
+            const element = badgeData[i];
+            if (activity.title === element.name) {
+                return `${element.image}`
+            }  
+            
         }
     }
 
@@ -66,24 +69,27 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                 <div className="flex-row justify-space-between my-4">
                     {activities &&
                         activities.map((activityData) => (
-                            <div key={activityData} className="col-12 col-xl-6">
+                            <div key={activityData.title} className="col-12 col-xl-6">
                                 <Card sx={{ minWidth: 275, m: 3, backgroundColor: '#b2dfdb' }} >
                                     {isLoggedInUser && (
                                         <IconButton aria-label="delete">
                                             <DeleteIcon
                                /*  onClick={() => handleRemoveActivity(activityData)} */ />
-                                        </IconButton >
+                                        </IconButton>
                                     )}
                                     <CardContent>
+                                    <div>
+                                    hello world
+                                    </div>
                                         <CardMedia
                                             style={{ height: '37vh' }}
-                                        /* image={badgeDisplay(activity)} */
+                                        image={badgeDisplay(activityData)} 
                                         />
                                         <Typography variant="h5" component="div">
                                             {activityData.title}
                                         </Typography>
                                         <Typography variant="body2">
-                                            You visited {/* {activity.description} */} Activities.description
+                                            You visited {activityData.description} Activities.description
                                         </Typography>
                                         {profile.comments?.length > 0 && (
                                             <Comments

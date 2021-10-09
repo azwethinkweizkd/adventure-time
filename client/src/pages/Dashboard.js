@@ -41,18 +41,20 @@ const Profile = () => {
             </h4>
         );
     }
-
+console.log(profile.activities)
     return (
         <div>
             <h2 className="card-header">
                 {profileId ? `${profile.name}'s` : 'Your'} Dashboard
             </h2>
             <Box>
-                <Badges 
+                <Badges
+                activities={profile.activities} 
                 comments={profile.comments}
                 isLoggedInUser={!profileId && true}/>
+              
             </Box>
-        </div >
+        </div>
     );
 };
 

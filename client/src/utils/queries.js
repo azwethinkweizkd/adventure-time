@@ -5,6 +5,10 @@ export const QUERY_PROFILES = gql`
     profiles {
       _id
       name
+      activities{
+        title
+        description
+      }
     }
   }
 `;
@@ -14,8 +18,11 @@ export const QUERY_SINGLE_PROFILE = gql`
     profile(profileId: $profileId) {
       _id
       name
+      activities{
+        title
+        description
+      }
       comments
-
     }
   }
 `;
@@ -25,9 +32,11 @@ export const QUERY_ME = gql`
     me {
       _id
       name
-
+      activities{
+        title
+        description
+      }
       comments
-
     }
   }
 `;
