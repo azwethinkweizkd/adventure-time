@@ -30,10 +30,6 @@ export default function Playground({ profileId }) {
     event.preventDefault();
 
     const activityData = { title: title, description: description }
-    console.log(title, 'line 33');
-    console.log(description, 'line 34');
-    console.log(activityData);
-
     try {
       const data = await addActivity({
         variables: { profileId, activityData },
