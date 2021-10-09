@@ -17,11 +17,15 @@ const typeDefs = gql`
     _id: ID
     title: String
     description: String
-}
+  }
   input activityInput {
     _id: ID
     title: String
     description: String
+  }
+  type deleteResponse {
+    ok: Boolean
+    message: String
   }
   type Query {
     profiles: [Profile]!
@@ -33,7 +37,7 @@ const typeDefs = gql`
     addProfile(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addActivity(profileId: ID!, activityData: activityInput!): Profile
-    removeActivity(activityId: ID): Profile 
+    removeActivity(activityId: ID): deleteResponse  
     removeProfile: Profile
     addComment(profileId: ID!, comment: String!): Profile
     removeComment(comment: String!): Profile

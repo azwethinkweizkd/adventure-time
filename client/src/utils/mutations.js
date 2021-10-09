@@ -58,11 +58,7 @@ mutation addActivity($profileId: ID!, $activityData: activityInput!){
 `;
 
 export const REMOVE_ACTIVITY = gql`
-mutation removeActivity($activity: String!) {
-  removeActivity(activity: $activity) {
-    _id
-    name
-    activities
-  }
+mutation removeActivity($activityId: ID!) {
+  removeActivity(activityId: $activityId) 
 }
 `;

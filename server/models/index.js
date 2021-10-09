@@ -1,3 +1,3 @@
 const Profile = require('./Profile');
-
-module.exports = { Profile };
+const Activity = require('./Activity');
+module.exports = { Profile, Activity };

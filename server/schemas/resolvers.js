@@ -14,7 +14,7 @@ const resolvers = {
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id });
+        return Profile.findOne({ _id: context.user._id }).populate("activities");
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -83,12 +83,13 @@ const resolvers = {
     },
 
     addActivity: async (parent, { activityData, profileId }, context) => {
-      console.log(activityData)
-      console.log(profileId)
       if (context.user) {
+        const activityCreate = await Activity.create(
+          activityData
+        )
         const updatedUser = await Profile.findByIdAndUpdate(
           { _id: profileId },
-          { $addToSet: { activities: activityData } },
+          { $addToSet: { activities: activityCreate._id } },
           { new: true }
         );
         return updatedUser;
@@ -101,15 +102,14 @@ const resolvers = {
     removeActivity: async (parent, args, context) => {
       if (context.user) {
         const updatedUser = await Profile.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { savedActivity: { activityId: args.activityId } } },
+          { _id: profileId },
+          { $pull: { activities: { _id: args.activityId } } },
           { new: true }
         );
 
-        return updatedUser;
+        return {ok: true, message: 'Activity removed'};
       }
-
-      throw new AuthenticationError('Error! Your activity was unable to be deleted!');
+      return {ok: false, message: 'Activity was not removed'};
     }
   },
 };
