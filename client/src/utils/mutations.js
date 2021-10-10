@@ -13,10 +13,8 @@ export const ADD_PROFILE = gql`
 `;
 
 export const ADD_COMMENT = gql`
-  mutation addComment($profileId: ID!, $comment: String!) {
-    addComment(profileId: $profileId, comment: $comment) {
-      _id
-      name
+  mutation addComment($activityId: ID!, $comment: String!) {
+    addComment(activityId: $activityId, comment: $comment) {
       comments
     }
   }
@@ -29,7 +27,7 @@ export const LOGIN_USER = gql`
       profile {
         _id
         name
-      }
+      } 
     }
   }
 `;
@@ -52,6 +50,7 @@ mutation addActivity($profileId: ID!, $activityData: activityInput!){
         activities {
           title
           description
+          comments 
         }
     }
 }

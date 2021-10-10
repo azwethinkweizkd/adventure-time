@@ -52,7 +52,7 @@ const Comments = ({ comments, isLoggedInUser = false }) => {
                             <IconButton aria-label="delete">
                                 <DeleteIcon 
                                 onClick={() => handleRemoveComment(comment)}/>
-                            </IconButton >
+                            </IconButton>
                             )}
                         </Card>
                     </div>

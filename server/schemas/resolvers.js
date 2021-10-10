@@ -1,5 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { Profile } = require('../models');
+const { Activity } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -45,13 +46,13 @@ const resolvers = {
     },
 
     // Add a third argument to the resolver to access data in our `context`
-    addComment: async (parent, { profileId, comment }, context) => {
+    addComment: async (parent, { activityId, comment }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       if (context.user) {
-        return Profile.findOneAndUpdate(
-          { _id: profileId },
+        return Activity.findOneAndUpdate(
+          { _id: activityId },
           {
-            $addToSet: { comments: comment },
+            $push: { comments: comment },
           },
           {
             new: true,

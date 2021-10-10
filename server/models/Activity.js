@@ -9,6 +9,12 @@ const activitySchema = new Schema({
     type: String,
     required: true,
   },
+  comments: [
+    {
+      type: String,
+      required: true,
+    },
+  ]
 });
 
 const Activity = model('Activity', activitySchema);

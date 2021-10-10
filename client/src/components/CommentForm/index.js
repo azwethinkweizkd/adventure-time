@@ -8,7 +8,7 @@ import { ADD_COMMENT } from '../../utils/mutations';
 
 import Auth from '../../utils/auth';
 
-const CommentForm = ({ profileId }) => {
+const CommentForm = ({ activityId }) => {
     const [comment, setComment] = useState('');
 
     const [addComment, { error }] = useMutation(ADD_COMMENT);
@@ -18,7 +18,7 @@ const CommentForm = ({ profileId }) => {
 
         try {
             const data = await addComment({
-                variables: { profileId, comment },
+                variables: { activityId, comment },
             });
 
             setComment('');
@@ -46,7 +46,7 @@ const CommentForm = ({ profileId }) => {
                     <div className="col-12 col-lg-3">
                         <IconButton aria-label="add" type="submit">
                             <AddCommentIcon />
-                        </IconButton >
+                        </IconButton>
                     </div>
                     {error && (
                         <div className="col-12 my-3 bg-danger text-white p-3">
