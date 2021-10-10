@@ -1,4 +1,5 @@
 const category = [
+  "Walking",
   "Camping",
   "Hiking",
   "Trail running",
