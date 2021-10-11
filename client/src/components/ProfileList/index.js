@@ -25,7 +25,7 @@ const ProfileList = ({ profiles, title }) => {
 
                 <Link
                   className="btn btn-block btn-squared btn-light text-dark"
-                  to={`/dashboard`}
+                  to={`/profiles/${profile._id}`}
                 >
                   Comment on badges.
                 </Link>

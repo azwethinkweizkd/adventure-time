@@ -6,6 +6,7 @@ export const QUERY_PROFILES = gql`
       _id
       name
       activities{
+        _id
         title
         description
         comments
@@ -20,6 +21,7 @@ export const QUERY_SINGLE_PROFILE = gql`
       _id
       name
       activities{
+        _id
         title
         description
         comments 

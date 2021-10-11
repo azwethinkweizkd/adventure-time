@@ -6,7 +6,7 @@ const typeDefs = gql`
     name: String
     email: String
     password: String
-    activities: [Activity]
+    activities: [Activity]!
   }
   type Auth {
     token: ID!
@@ -37,9 +37,9 @@ const typeDefs = gql`
     addProfile(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addActivity(profileId: ID!, activityData: activityInput!): Profile
-    removeActivity(activityId: ID): deleteResponse  
+    removeActivity: Activity  
     removeProfile: Profile
-    addComment(activityId: ID, comment: String!): Profile
+    addComment(activityId: ID!, comment: String!): Activity
     removeComment(comment: String!): Activity
   }
 `;
