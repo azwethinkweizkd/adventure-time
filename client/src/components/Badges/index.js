@@ -65,13 +65,9 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
 
         }
     }
-
     if (!activities.length) {
         return <h3>No Adventures Yet</h3>;
     }
-
-    console.log(activities, "Test line")
-
     return (
         <div>
             <Grid container spacing={2}>
