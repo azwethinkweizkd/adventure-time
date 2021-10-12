@@ -42,12 +42,12 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
         },
     });
 
-    const handleRemoveActivity = async (activityId) => {
-       console.log(activityId)
+    const handleRemoveActivity = async (activityData) => {
+        console.log(activityData)
         try {
             const { data } = await removeActivity({
 
-                variables: {  activityId: activityId },
+                variables: { activityData },
             });
         } catch (err) {
             console.error("wont remove");
@@ -56,13 +56,13 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
     };
 
     const badgeDisplay = (activity) => {
-    
+
         for (let i = 0; i < badgeData.length; i++) {
             const element = badgeData[i];
             if (activity.title === element.name) {
                 return `${element.image}`
-            }  
-            
+            }
+
         }
     }
     if (!activities.length) {
@@ -74,18 +74,18 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                 <div className="flex-row justify-space-between my-4">
                     {activities &&
                         activities.map((activityData) => (
-                            <div key={activityData.title} className="col-12 col-xl-6">
+                            <div key={activityData._id} className="col-12 col-xl-6">
                                 <Card sx={{ minWidth: 275, m: 3, backgroundColor: '#b2dfdb' }} >
                                     {isLoggedInUser && (
-                                        <IconButton aria-label="delete" data-id={activityData._id}>
-                                            <DeleteIcon id = {activityData._id}
-                                        onClick={() => handleRemoveActivity(activityData._id)} />
+                                        <IconButton aria-label="delete" /* data-id={activityData._id} */>
+                                            <DeleteIcon /* id={activityData._id} */
+                                                onClick={() => handleRemoveActivity(activityData)} />
                                         </IconButton>
                                     )}
                                     <CardContent>
                                         <CardMedia
                                             style={{ height: '37vh' }}
-                                        image={badgeDisplay(activityData)} 
+                                            image={badgeDisplay(activityData)}
                                         />
                                         <Typography variant="h5" component="div">
                                             {activityData.title}
@@ -93,14 +93,14 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                                         <Typography variant="body2">
                                             You visited {activityData.description}
                                         </Typography>
-                                        {profile.comments?.length > 0 && (
+                                        {activityData.comments?.length > 0 && (
                                             <Comments
-                                                comments={profile.comments}
+                                                comments={activityData.comments}
                                                 isLoggedInUser={!profileId && true}
                                             />
                                         )}
                                     </CardContent>
-                                    <CommentForm profileId={profile._id} />
+                                    {<CommentForm activityId={activityData._id} />}
                                 </Card>
                             </div>
                         )

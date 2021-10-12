@@ -45,6 +45,22 @@ const resolvers = {
       return { token, profile };
     },
 
+    addActivity: async (parent, { activityData, profileId }, context) => {
+      if (context.user) {
+        const activityCreate = await Activity.create(
+          activityData
+        )
+        const updatedUser = await Profile.findByIdAndUpdate(
+          { _id: profileId },
+          { $addToSet: { activities: activityCreate._id } },
+          { new: true }
+        );
+        return updatedUser;
+      }
+      
+      throw new AuthenticationError('Error! You need to be logged in to save your activity!');
+    },
+
     // Add a third argument to the resolver to access data in our `context`
     addComment: async (parent, { activityId, comment }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
@@ -52,7 +68,7 @@ const resolvers = {
         return Activity.findOneAndUpdate(
           { _id: activityId },
           {
-            $push: { comments: comment },
+            $addToSet: { comments: comment },
           },
           {
             new: true,
@@ -81,23 +97,6 @@ const resolvers = {
         );
       }
       throw new AuthenticationError('You need to be logged in!');
-    },
-
-    addActivity: async (parent, { activityData, profileId }, context) => {
-      if (context.user) {
-        const activityCreate = await Activity.create(
-          activityData
-        )
-        const updatedUser = await Profile.findByIdAndUpdate(
-          { _id: profileId },
-          { $addToSet: { activities: activityCreate._id } },
-          { new: true }
-        );
-        return updatedUser;
-      }
-      
-
-      throw new AuthenticationError('Error! You need to be logged in to save your activity!');
     },
 
     removeActivity: async (parent, args, context) => {

@@ -10,7 +10,7 @@ import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
-const Profile = () => {
+const Dashboard = () => {
     const { profileId } = useParams();
 
     // If there is no `profileId` in the URL as a parameter, execute the `QUERY_ME` query instead for the logged in user's information
@@ -20,6 +20,7 @@ const Profile = () => {
             variables: { profileId: profileId },
         }
     );
+    
 
     // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
     const profile = data?.me || data?.profile || {};
@@ -41,7 +42,6 @@ const Profile = () => {
             </h4>
         );
     }
-console.log(profile.activities)
     return (
         <div>
             <h2 className="card-header">
@@ -50,12 +50,11 @@ console.log(profile.activities)
             <Box>
                 <Badges
                 activities={profile.activities} 
-                comments={profile.comments}
+                comments={profile.activities.comments}
                 isLoggedInUser={!profileId && true}/>
-              
             </Box>
         </div>
     );
 };
 
-export default Profile;
+export default Dashboard;
