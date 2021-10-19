@@ -39,11 +39,8 @@ const Comments = ({ comments, isLoggedInUser = false }) => {
             {comments &&
                 comments.map((comment) => (
                     <div key={comment} className="col-12 col-xl-6">
-                        <Card sx={{ minWidth: 275, backgroundColor: '#90caf9', m:.5 }} >
+                        <Card sx={{ minWidth: 450, backgroundColor: '#90caf9', m:.5 }} >
                             <CardContent>
-                                <Typography variant="h5" component="div">
-                                    {/* {profile.name} */}
-                                </Typography>
                                 <Typography color="text.secondary">
                                     {comment}
                                 </Typography>

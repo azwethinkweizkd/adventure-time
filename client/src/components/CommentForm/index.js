@@ -20,7 +20,6 @@ const CommentForm = ({ activityId }) => {
             const data = await addComment({
                 variables: { activityId, comment },
             });
-
             setComment('');
         } catch (err) {
             console.error(err);
@@ -55,10 +54,12 @@ const CommentForm = ({ activityId }) => {
                     )}
                 </form>
             ) : (
-                <p>
-                    You need to be logged in to endorse comments. Please{' '}
-                    <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
-                </p>
+                <div>
+                    <p class='m-4'>
+                        You need to be logged in to add comments. Please{' '}
+                        <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
+                    </p>
+                </div>
             )}
         </div>
     );

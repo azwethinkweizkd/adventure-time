@@ -22,7 +22,6 @@ const ProfileList = ({ profiles, title }) => {
                     {profile.activities && profile.activities.length === 1 ? '' : 's'}
                   </span>
                 </h4>
-
                 <Link
                   className="btn btn-block btn-squared btn-light text-dark"
                   to={`/profiles/${profile._id}`}
