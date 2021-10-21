@@ -46,7 +46,6 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
         console.log(activityData)
         try {
             const { data } = await removeActivity({
-
                 variables: { activityData },
             });
         } catch (err) {
@@ -56,13 +55,11 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
     };
 
     const badgeDisplay = (activity) => {
-
         for (let i = 0; i < badgeData.length; i++) {
             const element = badgeData[i];
             if (activity.title === element.name) {
                 return `${element.image}`
             }
-
         }
     }
     if (!activities.length) {
@@ -84,8 +81,9 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                                     )}
                                     <CardContent>
                                         <CardMedia
-                                            style={{ height: '37vh' }}
+                                            component="img"
                                             image={badgeDisplay(activityData)}
+                                            alt="achievement badge"
                                         />
                                         <Typography variant="h5" component="div">
                                             {activityData.title}

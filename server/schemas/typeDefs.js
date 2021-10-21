@@ -23,10 +23,6 @@ const typeDefs = gql`
     title: String
     description: String
   }
-  type deleteResponse {
-    ok: Boolean
-    message: String
-  }
   type Query {
     profiles: [Profile]!
     profile(profileId: ID!): Profile

@@ -72,9 +72,11 @@ export default function Playground({ profileId }) {
               value={title}
               onChange={(event, newValue) => { setTitle(newValue) }}
               renderInput={(params) => (
-                <TextField {...params}
-
-                  label="Activities" variant="standard" />
+                <TextField
+                  {...params}
+                  label="Activities"
+                  variant="standard"
+                />
               )}
             />
             <Button className="btn btn-info btn-block py-3" type="submit">

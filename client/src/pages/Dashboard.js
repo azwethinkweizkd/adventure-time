@@ -20,7 +20,6 @@ const Dashboard = () => {
             variables: { profileId: profileId },
         }
     );
-    
 
     // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
     const profile = data?.me || data?.profile || {};
