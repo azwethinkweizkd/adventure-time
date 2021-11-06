@@ -1,14 +1,17 @@
 import React from 'react';
+
 import { Redirect, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import AboutMeDashboard from '../components/AboutMeDashboard';
-import Badges from '../components/Badges';
 
-import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../utils/queries';
+import MyActivitiesForm from '../MyActivitiesForm';
+import FavoritePlacesForm from '../FavoritePlacesForm';
+import FuturePlacesForm from '../FuturePlacesForm';
 
-import Auth from '../utils/auth';
+import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../../utils/queries';
 
-const Dashboard = () => {
+import Auth from '../../utils/auth';
+
+const AboutMeForm = () => {
     const { profileId } = useParams();
 
     // If there is no `profileId` in the URL as a parameter, execute the `QUERY_ME` query instead for the logged in user's information
@@ -40,20 +43,12 @@ const Dashboard = () => {
         );
     }
     return (
-        <div class="flex">
-            <Badges
-                activities={profile.activities}
-                comments={profile.activities.comments}
-                isLoggedInUser={!profileId && true}
-            />
-            <AboutMeDashboard
-                residency={profile.residency}
-                myActivities={profile.myActivities}
-                favoritePlaces={profile.favoritePlaces}
-                futurePlaces={profile.futurePlaces}
-                isLoggedInUser={!profileId && true} />
+        <div>
+            <MyActivitiesForm profileId={profile._id}/>
+            <FavoritePlacesForm profileId={profile._id}/>
+            <FuturePlacesForm profileId={profile._id}/>
         </div>
     );
 };
 
-export default Dashboard;
+export default AboutMeForm;

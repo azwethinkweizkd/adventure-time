@@ -1,22 +1,23 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
-
-import { REMOVE_COMMENT } from '../../utils/mutations';
-import { QUERY_ME } from '../../utils/queries';
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
+import { REMOVE_COMMENT } from '../../utils/mutations';
+import { QUERY_SINGLE_ACTIVITY } from '../../utils/queries';
+
+
+
 const Comments = ({ comments, isLoggedInUser = false }) => {
     const [removeComment, { error }] = useMutation(REMOVE_COMMENT, {
         update(cache, { data: { removeComment } }) {
             try {
                 cache.writeQuery({
-                    query: QUERY_ME,
-                    data: { me: removeComment },
+                    query: QUERY_SINGLE_ACTIVITY,
+                    data: { activity: removeComment },
                 });
             } catch (e) {
                 console.error(e);
@@ -38,8 +39,8 @@ const Comments = ({ comments, isLoggedInUser = false }) => {
         <div>
             {comments &&
                 comments.map((comment) => (
-                    <div key={comment} className="col-12 col-xl-6">
-                        <Card sx={{ minWidth: 450, backgroundColor: '#90caf9', m:.5 }} >
+                    <div key={comment}>
+                        <Card class="card2__comment">
                             <CardContent>
                                 <Typography color="text.secondary">
                                     {comment}
@@ -47,7 +48,7 @@ const Comments = ({ comments, isLoggedInUser = false }) => {
                             </CardContent>
                             {isLoggedInUser && (
                             <IconButton aria-label="delete">
-                                <DeleteIcon 
+                                <DeleteIcon
                                 onClick={() => handleRemoveComment(comment)}/>
                             </IconButton>
                             )}

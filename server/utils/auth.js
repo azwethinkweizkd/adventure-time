@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const secret = "mysecretssshhhhhhh";
+const secret = "process.env.SECRET_KEY";
 const expiration = "2h";
 // app.get('/', async (req, res) => {
 //
