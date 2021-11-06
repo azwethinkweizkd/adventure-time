@@ -5,7 +5,6 @@ const profileSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
   email: {
@@ -24,6 +23,28 @@ const profileSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Activity'
     },
+  ],
+  residency: { 
+    type: String,
+    require: true,
+  },
+  myActivities: [
+    {
+    type: String,
+    trim: true,
+    }
+  ],
+  favoritePlaces: [
+    {
+    type: String,
+    trim: true,
+    }
+  ],
+  futurePlaces: [
+    {
+    type: String,
+    trim: true,
+    }
   ],
 });
 

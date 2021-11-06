@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const ADD_PROFILE = gql`
-  mutation addProfile($name: String!, $email: String!, $password: String!) {
-    addProfile(name: $name, email: $email, password: $password) {
+  mutation addProfile($name: String!, $email: String!, $password: String!, $residency: String!) {
+    addProfile(name: $name, email: $email, password: $password, residency: $residency) {
       token
       profile {
         _id
@@ -33,21 +33,20 @@ mutation addActivity($profileId: ID!, $activityData: activityInput!){
       title
       description
       comments 
+      createdAt
     }
   }
 }
 `;
 
 export const REMOVE_ACTIVITY = gql`
-mutation removeActivity($activityData: activityInput!) {
-  removeActivity(activityData: $activityData) {
-    _id
-    name
-    activities {
+mutation removeActivity($activityId: ID!) {
+  removeActivity(activityId: $activityId) {
+      _id
       title
       description
       comments 
-    }
+      createdAt
   }
 }
 `;
@@ -64,12 +63,42 @@ export const ADD_COMMENT = gql`
 `;
 
 export const REMOVE_COMMENT = gql`
-  mutation removeComment($profileId: ID!, $comment: String!) {
-    removeComment(comment: $comment) {
+  mutation removeComment($activityId: ID!, $comment: String!) {
+    removeComment(activityId: $activityId, comment: $comment) {
       _id
       title
       description
       comments
+    }
+  }
+`;
+
+export const ADD_MYACTIVITY = gql`
+  mutation addMyActivity($profileId: ID!, $activity: String!) {
+    addMyActivity(profileId: $profileId, activity: $activity) {
+      _id
+      name
+      myActivities
+    }
+  }
+`;
+
+export const ADD_FAVORITEPLACES = gql`
+  mutation addFavoritePlaces($profileId: ID!, $place: String!) {
+    addFavoritePlaces(profileId: $profileId, place: $place) {
+      _id
+      name
+      favoritePlaces
+    }
+  }
+`;
+
+export const ADD_FUTUREPLACES = gql`
+  mutation addFuturePlaces($profileId: ID!, $futurePlace: String!) {
+    addFuturePlaces(profileId: $profileId, futurePlace: $futurePlace) {
+      _id
+      name
+      futurePlaces
     }
   }
 `;

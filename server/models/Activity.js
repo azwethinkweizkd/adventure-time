@@ -14,8 +14,13 @@ const activitySchema = new Schema({
       type: String,
       required: true,
     },
-  ]
-});
+  ],
+  createdAt: { 
+    type: String,
+  },
+},
+{timestamps: true},
+);
 
 const Activity = model('Activity', activitySchema);
 

@@ -5,12 +5,29 @@ export const QUERY_PROFILES = gql`
     profiles {
       _id
       name
+      residency
+      myActivities
+      favoritePlaces
+      futurePlaces
       activities{
         _id
         title
         description
         comments
+        createdAt
       }
+    }
+  }
+`;
+
+export const QUERY_ACTIVITIES = gql`
+  query allActivities {
+    activities {
+        _id
+        title
+        description
+        comments
+        createdAt
     }
   }
 `;
@@ -20,14 +37,31 @@ export const QUERY_SINGLE_PROFILE = gql`
     profile(profileId: $profileId) {
       _id
       name
+      residency
+      myActivities
+      favoritePlaces
+      futurePlaces
       activities{
         _id
         title
         description
         comments 
+        createdAt
       }
     }
   }
+`;
+
+export const QUERY_SINGLE_ACTIVITY = gql `
+query singleActivity ($activityId: ID!){
+  activity(activityId: $activityId){
+      _id
+      title
+      description
+      comments
+      createdAt
+  }
+}
 `;
 
 export const QUERY_ME = gql`
@@ -35,11 +69,16 @@ export const QUERY_ME = gql`
     me {
       _id
       name
+      residency
+      myActivities
+      favoritePlaces
+      futurePlaces
       activities{
         _id
         title
         description
         comments
+        createdAt
       }
     }
   }
