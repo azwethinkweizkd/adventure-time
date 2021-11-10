@@ -1,9 +1,6 @@
-const {
-  AuthenticationError,
-  PubSub,
-  withFilter,
-} = require("apollo-server-express");
-const { Profile, Activity, Message } = require("../models");
+const { AuthenticationError } = require("apollo-server-express");
+const { Profile } = require("../models");
+const { Activity } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -11,13 +8,10 @@ const resolvers = {
     profiles: async () => {
       return Profile.find();
     },
-
-    messages: async () => {
-      return Message.find();
-    },
-
     profile: async (parent, { profileId }) => {
-      return Profile.findOne({ _id: profileId }).populate("activities");
+      return Profile.findOne({ _id: profileId })
+        .populate("activities")
+        .populate("activity");
     },
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
@@ -29,7 +23,7 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     activities: async () => {
-      return Activity.find().sort({ createdAt: -1 });
+      return Activity.find().sort({ createdAt: -1 }).populate("profile");
     },
     activity: async (parent, { activityId }) => {
       const activity = await Activity.findById(activityId);
@@ -38,12 +32,6 @@ const resolvers = {
       } else {
         throw new Error("Activity not found");
       }
-    },
-  },
-
-  Message: {
-    profiles: async ({ senderName }) => {
-      return Profile.find({ name: senderName });
     },
   },
 
@@ -146,24 +134,9 @@ const resolvers = {
     },
     removeActivity: async (parent, { activityId }, context) => {
       if (context.user) {
-        await Activity.findOneAndDelete({
-          _id: activityId,
-          profile: context.user._id,
-        });
-        return await Profile.findOneAndDelete(
+        const updatedUser = await Profile.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { activity: activityId } },
-          { new: true }
-        );
-      }
-      throw new AuthenticationError("You need to be logged in!");
-    },
-
-    removeComment: async (parent, { comment }, context) => {
-      if (context.user) {
-        return Profile.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { activities: { activityId } } },
+          { $pull: { activities: activityId } },
           { new: true }
         );
 
@@ -173,75 +146,17 @@ const resolvers = {
         "Error! You need to be logged in to delete your activity!"
       );
     },
-
-    userTyping: (_, { name, receiverName }) => {
-      pubsub.publish("userTyping", {
-        userTyping: name,
-        receiverName,
-      });
-      return true;
-    },
-
-    sendMessage: async (
-      _,
-      { senderName, receiverName, message, timestamp }
-    ) => {
-      const userText = new Message({
-        senderName,
-        receiverName,
-        message,
-        timestamp,
-      });
-      await userText.save();
-      pubsub.publish("newMessage", {
-        newMessage: userText,
-        receiverName,
-      });
-      return userText;
-    },
-
-    updateMessage: async (_, { id, message }) => {
-      const userText = await Message.findOneAndUpdate(
-        { _id: id },
-        { message },
-        { new: true }
-      );
-      return userText;
-    },
-
-    deleteMessage: async (_, { id }) => {
-      await Message.findOneAndDelete({ _id: id });
-      return true;
-    },
-  },
-  Subscription: {
-    newMessage: {
-      subscribe: withFilter(
-        () => pubsub.asyncIterator("newMessage"),
-        (payload, variables) => {
-          return payload.receiverName === variables.receiverName;
-        }
-      ),
-    },
-    newUser: {
-      subscribe: (_, {}, { pubsub }) => {
-        return pubsub.asyncIterator("newUser");
-      },
-    },
-    oldUser: {
-      subscribe: (_, {}, { pubsub }) => {
-        return pubsub.asyncIterator("oldUser");
-      },
-    },
-    userTyping: {
-      subscribe: withFilter(
-        () => pubsub.asyncIterator("userTyping"),
-        (payload, variables) => {
-          return payload.receiverName === variables.receiverName;
-        }
-      ),
+    removeComment: async (parent, { activityId, comment }, context) => {
+      if (context.user) {
+        return Activity.findOneAndUpdate(
+          { _id: activityId },
+          { $pull: { comments: comment } },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };
-const pubsub = new PubSub();
+
 module.exports = resolvers;
