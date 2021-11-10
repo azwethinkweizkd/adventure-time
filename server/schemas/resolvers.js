@@ -1,7 +1,7 @@
-const { AuthenticationError } = require('apollo-server-express');
-const { Profile } = require('../models');
-const { Activity } = require('../models');
-const { signToken } = require('../utils/auth');
+const { AuthenticationError } = require("apollo-server-express");
+const { Profile } = require("../models");
+const { Activity } = require("../models");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -9,31 +9,40 @@ const resolvers = {
       return Profile.find();
     },
     profile: async (parent, { profileId }) => {
-      return Profile.findOne({ _id: profileId }).populate("activities");
+      return Profile.findOne({ _id: profileId })
+        .populate("activities")
+        .populate("activity");
     },
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id }).populate("activities");
+        return Profile.findOne({ _id: context.user._id }).populate(
+          "activities"
+        );
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
     activities: async () => {
-      return Activity.find().sort({createdAt: -1});
+      return Activity.find().sort({ createdAt: -1 }).populate("profile");
     },
     activity: async (parent, { activityId }) => {
-        const activity = await Activity.findById(activityId);
-        if(activity) {
-          return activity;
-        } else {
-          throw new Error('Activity not found')
-        }
+      const activity = await Activity.findById(activityId);
+      if (activity) {
+        return activity;
+      } else {
+        throw new Error("Activity not found");
+      }
     },
   },
 
   Mutation: {
     addProfile: async (parent, { name, email, password, residency }) => {
-      const profile = await Profile.create({ name, email, password, residency });
+      const profile = await Profile.create({
+        name,
+        email,
+        password,
+        residency,
+      });
       const token = signToken(profile);
 
       return { token, profile };
@@ -42,13 +51,13 @@ const resolvers = {
       const profile = await Profile.findOne({ email });
 
       if (!profile) {
-        throw new AuthenticationError('No profile with this email found!');
+        throw new AuthenticationError("No profile with this email found!");
       }
 
       const correctPw = await profile.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect password!');
+        throw new AuthenticationError("Incorrect password!");
       }
 
       const token = signToken(profile);
@@ -58,46 +67,44 @@ const resolvers = {
       if (context.user) {
         return Profile.findOneAndDelete({ _id: context.user._id });
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
     addMyActivity: async (parent, { profileId, activity }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: profileId },
           { $addToSet: { myActivities: activity } },
-          { new: true, }
+          { new: true }
         );
       }
       // If user attempts to execute this mutation and isn't logged in, throw an error
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
     addFavoritePlaces: async (parent, { profileId, place }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: profileId },
           { $addToSet: { favoritePlaces: place } },
-          { new: true, }
+          { new: true }
         );
       }
       // If user attempts to execute this mutation and isn't logged in, throw an error
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
     addFuturePlaces: async (parent, { profileId, futurePlace }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: profileId },
           { $addToSet: { futurePlaces: futurePlace } },
-          { new: true, }
+          { new: true }
         );
       }
       // If user attempts to execute this mutation and isn't logged in, throw an error
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
     addActivity: async (parent, { activityData, profileId }, context) => {
       if (context.user) {
-        const activityCreate = await Activity.create(
-          activityData
-        )
+        const activityCreate = await Activity.create(activityData);
         const updatedUser = await Profile.findByIdAndUpdate(
           { _id: profileId },
           { $addToSet: { activities: activityCreate._id } },
@@ -106,7 +113,9 @@ const resolvers = {
         return updatedUser;
       }
 
-      throw new AuthenticationError('Error! You need to be logged in to save your activity!');
+      throw new AuthenticationError(
+        "Error! You need to be logged in to save your activity!"
+      );
     },
     addComment: async (parent, { activityId, comment }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
@@ -121,19 +130,21 @@ const resolvers = {
         );
       }
       // If user attempts to execute this mutation and isn't logged in, throw an error
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
     removeActivity: async (parent, { activityId }, context) => {
       if (context.user) {
-        const updatedUser = await Activity.findOneAndDelete(
+        const updatedUser = await Profile.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { activities: { activityId } } },
+          { $pull: { activities: activityId } },
           { new: true }
         );
 
         return updatedUser;
       }
-      throw new AuthenticationError('Error! You need to be logged in to delete your activity!');
+      throw new AuthenticationError(
+        "Error! You need to be logged in to delete your activity!"
+      );
     },
     removeComment: async (parent, { activityId, comment }, context) => {
       if (context.user) {
@@ -143,7 +154,7 @@ const resolvers = {
           { new: true }
         );
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };
