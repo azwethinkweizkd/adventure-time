@@ -26,7 +26,7 @@ const resolvers = {
           console.error(err);
         }
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 
@@ -106,6 +106,7 @@ const resolvers = {
     addActivity: async (parent, { activityData, profileId }, context) => {
       if (context.user) {
         const activityCreate = await Activity.create(activityData);
+        
         const updatedUser = await Profile.findByIdAndUpdate(context.user._id,
           { $addToSet: { activities: activityCreate._id } },
           { new: true }

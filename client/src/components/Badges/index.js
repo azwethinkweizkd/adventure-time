@@ -96,8 +96,10 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
                         </div>
                     ))}
             </div>
-        </div>
-    );
+          ))}
+      </div>
+    </div>
+  );
 };
 
 export default Badges;
