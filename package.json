@@ -1,7 +1,10 @@
 {
   "name": "adventure-time",
   "version": "1.0.0",
-  "description": "",
+  "description": "Social media app focused on connecting people through outdoor activities and challenges ",
+  "engines": {
+    "node": "14.x"
+  },
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
