@@ -31,7 +31,7 @@ const FuturePlaces = ({ profileId }) => {
             >
                 <div className="col-12 col-lg-9">
                     <input
-                        placeholder="Enter places you still want to go"
+                        placeholder="Enter a place you still want to go"
                         value={futurePlace}
                         className="form-input w-100"
                         onChange={(event) => setFuturePlaces(event.target.value)}
