@@ -1706,26 +1706,31 @@ label form [type="radio"] {
   }
 }
 
+.card2_header{
+  font-weight: 700;
+}
+
 .card2 {
   text-align: end;
-  max-width: 60rem;
+  max-width: 25rem;
   margin: 2rem auto;
   padding-bottom: 2em;
   position: relative;
-  display: block;
-  background: #60bea7;
+  display: block; 
+  background: #b8d1cb;
   border-radius: 6px;
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
 }
+
 .card2__title {
   margin: 0 auto;
-  color: #dfdfdf;
+  color: #686767;
   text-align: center;
   text-transform: capitalize;
 }
 .card2__img {
   display: block;
-  width: 50%;
+  width: 40%;
   height: auto;
   max-width: 100%;
   margin: 1em auto;
@@ -1745,6 +1750,38 @@ label form [type="radio"] {
   background-color: #90caf9;
   border-radius: 6px;
 }
+
+.commentCard{
+  min-width: 22rem;
+  background-color: #cfdbe6;
+  margin:.5rem;
+  border-radius: 6px;
+}
+
+.commentCard2{
+  padding: .75rem;
+  text-align:start;
+}
+
 .flex {
   display: inline-flex;
+}
+
+.aboutMe {
+  background-color: #bbbbbb;
+  padding: 2rem;
+  position: absolute;
+  top: 1;
+  right: 0;
+  width: 40rem;
+  margin: .5rem 2rem;
+  border-radius: 6px;
+}
+
+.aboutMe2 {
+  color: #0c0909;
+  text-align:start;
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: JetBrains Mono;
 }

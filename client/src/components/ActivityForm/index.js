@@ -32,7 +32,7 @@ export default function Playground({ profileId }) {
     const activityData = { title: title, description: description }
     try {
       const data = await addActivity({
-        variables: { profileId, activityData },
+        variables:{ activityData }
       });
 
       setTitle('');
@@ -50,8 +50,8 @@ export default function Playground({ profileId }) {
         >
           <Stack spacing={2}>
             <Autocomplete
-              id="disable-close-on-select"
-              disableCloseOnSelect
+              id="clear-on-escape"
+              clearOnEscape
               autoComplete={(parkNames, skiResorts)}
               options={options}
               value={description}
@@ -93,3 +93,4 @@ export default function Playground({ profileId }) {
     </div>
   );
 }
+

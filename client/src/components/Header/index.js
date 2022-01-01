@@ -29,7 +29,7 @@ const Header = () => {
                 Dashboard
               </Link>
               <Link className="btn btn-lg btn-primary m-2" to="/">
-                All Adventures
+                All Adventurers
               </Link>
               <button className="btn btn-lg btn-light m-2" onClick={logout}>
                 Logout

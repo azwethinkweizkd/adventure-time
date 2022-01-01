@@ -7,17 +7,15 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import { REMOVE_COMMENT } from '../../utils/mutations';
-import { QUERY_SINGLE_ACTIVITY } from '../../utils/queries';
+import { QUERY_ME } from '../../utils/queries';
 
-
-
-const Comments = ({ comments, isLoggedInUser = false }) => {
+const Comments = ({ activityId, comments, isLoggedInUser = false }) => {
     const [removeComment, { error }] = useMutation(REMOVE_COMMENT, {
         update(cache, { data: { removeComment } }) {
             try {
                 cache.writeQuery({
-                    query: QUERY_SINGLE_ACTIVITY,
-                    data: { activity: removeComment },
+                    query: QUERY_ME,
+                    data: { me: removeComment },
                 });
             } catch (e) {
                 console.error(e);
@@ -25,13 +23,13 @@ const Comments = ({ comments, isLoggedInUser = false }) => {
         },
     });
 
-    const handleRemoveComment = async (comment) => {
+    const handleRemoveComment = async (activityId, comment) => {
         try {
             const { data } = await removeComment({
-                variables: { comment },
+                variables: { activityId, comment },
             });
-        } catch (err) {
-            console.error(err);
+        } catch (e) {
+            console.error(e);
         }
     };
 
@@ -39,18 +37,18 @@ const Comments = ({ comments, isLoggedInUser = false }) => {
         <div>
             {comments &&
                 comments.map((comment) => (
-                    <div key={comment}>
-                        <Card class="card2__comment">
-                            <CardContent>
+                    <div key={comment} className="col-12 col-xl-6">
+                        <Card class="commentCard">
+                            <CardContent class="commentCard2">
                                 <Typography color="text.secondary">
                                     {comment}
                                 </Typography>
                             </CardContent>
                             {isLoggedInUser && (
-                            <IconButton aria-label="delete">
-                                <DeleteIcon
-                                onClick={() => handleRemoveComment(comment)}/>
-                            </IconButton>
+                                <IconButton aria-label="delete">
+                                    <DeleteIcon
+                                        onClick={() => handleRemoveComment(activityId, comment)} />
+                                </IconButton>
                             )}
                         </Card>
                     </div>
