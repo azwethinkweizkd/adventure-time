@@ -41,20 +41,18 @@ const Dashboard = () => {
   }
   return (
     <div class="flex">
-      <>
-        <Badges
-          activities={profile.activities}
-          comments={profile.activities.comments}
-          isLoggedInUser={!profileId && true}
-        />
-        <AboutMeDashboard
-          residency={profile.residency}
-          myActivities={profile.myActivities}
-          favoritePlaces={profile.favoritePlaces}
-          futurePlaces={profile.futurePlaces}
-          isLoggedInUser={!profileId && true}
-        />
-      </>
+      <Badges
+        activities={profile.activities}
+        comments={profile.activities.comments}
+        isLoggedInUser={!profileId && true}
+      />
+      <AboutMeDashboard
+        residency={profile.residency}
+        myActivities={profile.myActivities}
+        favoritePlaces={profile.favoritePlaces}
+        futurePlaces={profile.futurePlaces}
+        isLoggedInUser={!profileId && true}
+      />
     </div>
   );
 };

@@ -60,45 +60,54 @@ const Badges = ({ activities, isLoggedInUser = false }) => {
             }
         }
     };
-    if (!activities.length) {
-        return <h3>No Adventures Yet</h3>;
-    }
+  
+  if (!activities.length) {
     return (
-        <div class="w3-row-padding w3-center w3-section">
-            <h2 className="card-header card2_header">
-                {profileId ? `${profile.name}'s` : "Your"} Badges
-            </h2>
-            <div class="w3-col">
-                {activities &&
-                    activities.map((activityData) => (
-                        <div key={activityData._id} class="card2">
-                            {isLoggedInUser && (
-                                <IconButton aria-label="delete">
-                                    <DeleteIcon
-                                        onClick={() => handleRemoveActivity(activityData)} />
-                                </IconButton>
-                            )}
-                            <img
-                                class="card2__img"
-                                src={badgeDisplay(activityData)}
-                                alt={activityData.title}
-                            />
-                            <h2 class="card2__title">{activityData.title}</h2>
-                            <p class="card2__text">You visited {activityData.description}.</p>
-                            {activityData.comments?.length > 0 && (
-                                <Comments
-                                    activityId={activityData._id}
-                                    comments={activityData.comments}
-                                    isLoggedInUser={!profileId && true}
-                                />
-                            )}
-                            <CommentForm activityId={activityData._id} />
-                        </div>
-                    ))}
-            </div>
-          ))}
+      <>
+        <h3>No Adventures Yet</h3>
+      </>
+    );
+  }
+  return (
+    <>
+      <div class="w3-row-padding w3-center w3-section">
+        <h2 className="card-header">
+          {profileId ? `${profile.name}'s` : "Your"} Badges
+        </h2>
+        <div class="w3-col">
+          {activities &&
+            activities.map((activityData) => (
+              <div key={activityData._id} class="card2">
+                {isLoggedInUser && (
+                  <IconButton
+                    aria-label="delete" /* data-id={activityData._id} */
+                  >
+                    <DeleteIcon /* id={activityData._id} */
+                      onClick={() => handleRemoveActivity(activityData._id)}
+                    />
+                  </IconButton>
+                )}
+                <img
+                  class="card2__img"
+                  src={badgeDisplay(activityData)}
+                  alt={activityData.title}
+                />
+                <h2 class="card2__title">{activityData.title}</h2>
+                <p class="card2__text">
+                  You visited {activityData.description}.
+                </p>
+                {activityData.comments?.length > 0 && (
+                  <Comments
+                    comments={activityData.comments}
+                    isLoggedInUser={!profileId && true}
+                  />
+                )}
+                <CommentForm activityId={activityData._id} />
+              </div>
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
