@@ -24,25 +24,25 @@ const AboutMeDashboard = ({ myActivities, residency, favoritePlaces, futurePlace
     const profile = data?.me || data?.profile || {};
 
     return (
-        <Grid id="about-me" class="w3-col">
+        <Grid >
             <React.Fragment>
                 <CssBaseline />
                 <Container>
-                    <Box sx={{ bgcolor: '#aaf0d1', p: 1.5 }}>
-                        <Typography style={{ fontSize: '2rem', fontWeight: '700', fontFamily: 'JetBrains Mono' }} align="center">
+                    <Box class="aboutMe">
+                        <Typography class="aboutMe2">
                             <Link to="/aboutMe" style={{ color: '#212121' }}>About Me</Link>
                         </Typography>
                         {profile.residency?.length > 0 && (
                             <Typography>
                                 <h4>Where I live:</h4>
-                                <p>{residency}</p>
+                                <ul>{residency}</ul>
                             </Typography>)}
                         {profile.myActivities?.length > 0 && (
                             <Typography>
                                 <h4>Activities I enjoy:</h4>
                                 {myActivities &&
                                     myActivities.map((activity) => (
-                                        <p>{activity}</p>
+                                        <ul>{activity}</ul>
                                     ))}
                             </Typography>)}
                         {profile.favoritePlaces?.length > 0 && (
@@ -50,15 +50,15 @@ const AboutMeDashboard = ({ myActivities, residency, favoritePlaces, futurePlace
                                 <h4>Favorite places I've visited:</h4>
                                 {favoritePlaces &&
                                     favoritePlaces.map((place) => (
-                                        <p>{place}</p>
+                                        <ul>{place}</ul>
                                     ))}
                             </Typography>)}
-                            {profile.futurePlaces?.length > 0 && (
+                        {profile.futurePlaces?.length > 0 && (
                             <Typography>
                                 <h4>Places I want to go:</h4>
                                 {futurePlaces &&
                                     futurePlaces.map((futurePlace) => (
-                                        <p>{futurePlace}</p>
+                                        <ul>{futurePlace}</ul>
                                     ))}
                             </Typography>)}
                     </Box>

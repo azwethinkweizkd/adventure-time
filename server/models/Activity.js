@@ -16,9 +16,6 @@ const activitySchema = new Schema(
         required: true,
       },
     ],
-    createdAt: {
-      type: String,
-    },
   },
   { timestamps: true }
 );

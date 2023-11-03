@@ -31,7 +31,7 @@ const FavoritePlaces = ({ profileId }) => {
             >
                 <div className="col-12 col-lg-9">
                     <input
-                        placeholder="Enter a favorite place"
+                        placeholder="Enter a favorite place you have visited"
                         value={place}
                         className="form-input w-100"
                         onChange={(event) => setFavoritePlaces(event.target.value)}
