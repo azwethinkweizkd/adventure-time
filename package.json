@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Social media app focused on connecting people through outdoor activities and challenges ",
   "engines": {
-    "node": "14.x"
+    "node": "18.x"
   },
   "main": "server/server.js",
   "scripts": {
