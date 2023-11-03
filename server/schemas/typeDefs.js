@@ -1,6 +1,11 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  type Auth {
+    token: ID!
+    profile: Profile
+  }
+
   type Profile {
     _id: ID
     name: String
@@ -12,45 +17,39 @@ const typeDefs = gql`
     favoritePlaces: [String]!
     futurePlaces: [String]!
   }
-  type Auth {
-    token: ID!
-    profile: Profile
-  }
+
   type Activity {
     _id: ID
     title: String
     description: String
     comments: [String!]
-    createdAt: String
   }
+
   input activityInput {
     _id: ID
     title: String
     description: String
   }
+
   type Query {
     profiles: [Profile]!
     profile(profileId: ID!): Profile
-    me: Profile
-    activities: [Activity]!
     activity(activityId: ID!): Activity
+    me: Profile
   }
+
   type Mutation {
-    addProfile(
-      name: String!
-      email: String!
-      password: String!
-      residency: String!
-    ): Auth
     login(email: String!, password: String!): Auth
+    addProfile(name: String!, email: String!, password: String!, residency: String!): Auth
     removeProfile: Profile
 
     addMyActivity(profileId: ID!, activity: String!): Profile
     addFavoritePlaces(profileId: ID!, place: String!): Profile
     addFuturePlaces(profileId: ID!, futurePlace: String!): Profile
 
-    addActivity(profileId: ID!, activityData: activityInput!): Profile
-    removeActivity(activityId: ID!): Profile
+    addActivity(activityData: activityInput!): Profile
+    removeActivity(activityId: ID! ): Profile
+
     addComment(activityId: ID!, comment: String!): Activity
     removeComment(activityId: ID!, comment: String!): Activity
   }

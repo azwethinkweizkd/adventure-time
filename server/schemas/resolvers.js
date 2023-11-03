@@ -8,30 +8,25 @@ const resolvers = {
     profiles: async () => {
       return Profile.find();
     },
+
     profile: async (parent, { profileId }) => {
-      return Profile.findOne({ _id: profileId })
-        .populate("activities")
-        .populate("activity");
+      return Profile.findById(profileId).populate("activities");
     },
-    // By adding context to our query, we can retrieve the logged in user without specifically searching for them
+
+    activity: async (parent, { activityId }) => {
+      return Activity.findById(activityId).populate("comments");
+    },
+
     me: async (parent, args, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id }).populate(
-          "activities"
-        );
+        try {
+          return Profile.findById(context.user._id).populate("activities");
+        }
+        catch (err) {
+          console.error(err);
+        }
       }
       throw new AuthenticationError("You need to be logged in!");
-    },
-    activities: async () => {
-      return Activity.find().sort({ createdAt: -1 }).populate("profile");
-    },
-    activity: async (parent, { activityId }) => {
-      const activity = await Activity.findById(activityId);
-      if (activity) {
-        return activity;
-      } else {
-        throw new Error("Activity not found");
-      }
     },
   },
 
@@ -47,6 +42,7 @@ const resolvers = {
 
       return { token, profile };
     },
+
     login: async (parent, { email, password }) => {
       const profile = await Profile.findOne({ email });
 
@@ -63,12 +59,14 @@ const resolvers = {
       const token = signToken(profile);
       return { token, profile };
     },
+
     removeProfile: async (parent, args, context) => {
       if (context.user) {
         return Profile.findOneAndDelete({ _id: context.user._id });
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+
     addMyActivity: async (parent, { profileId, activity }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
@@ -80,6 +78,7 @@ const resolvers = {
       // If user attempts to execute this mutation and isn't logged in, throw an error
       throw new AuthenticationError("You need to be logged in!");
     },
+
     addFavoritePlaces: async (parent, { profileId, place }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
@@ -91,6 +90,7 @@ const resolvers = {
       // If user attempts to execute this mutation and isn't logged in, throw an error
       throw new AuthenticationError("You need to be logged in!");
     },
+
     addFuturePlaces: async (parent, { profileId, futurePlace }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
@@ -102,60 +102,77 @@ const resolvers = {
       // If user attempts to execute this mutation and isn't logged in, throw an error
       throw new AuthenticationError("You need to be logged in!");
     },
+
     addActivity: async (parent, { activityData, profileId }, context) => {
       if (context.user) {
         const activityCreate = await Activity.create(activityData);
-        const updatedUser = await Profile.findByIdAndUpdate(
-          { _id: profileId },
+        
+        const updatedUser = await Profile.findByIdAndUpdate(context.user._id,
           { $addToSet: { activities: activityCreate._id } },
           { new: true }
         );
         return updatedUser;
       }
 
-      throw new AuthenticationError(
-        "Error! You need to be logged in to save your activity!"
-      );
+      throw new AuthenticationError("Error! You need to be logged in to save your activity!");
     },
+
     addComment: async (parent, { activityId, comment }, context) => {
-      // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       if (context.user) {
-        return Activity.findOneAndUpdate(
-          { _id: activityId },
-          { $addToSet: { comments: comment } },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
+        try {
+          return Activity.findOneAndUpdate(
+            { _id: activityId },
+            { $addToSet: { comments: comment } },
+            { new: true, runValidators: true });
+        }
+        catch (err) {
+          console.error(err);
+        }
       }
-      // If user attempts to execute this mutation and isn't logged in, throw an error
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
+
     removeActivity: async (parent, { activityId }, context) => {
       if (context.user) {
-        const updatedUser = await Profile.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { activities: activityId } },
-          { new: true }
-        );
 
-        return updatedUser;
+        try {
+          const activityRemove = await Activity.deleteOne(
+            Activity.findByIdAndDelete(activityId));
+        }
+        catch (err) {
+          console.error(err);
+          return { ok: false, message: 'Activity was not removed' };
+        }
+
+        try {
+          const updatedUser = await Profile.findByIdAndUpdate(context.user._id,
+            { $pull: { activities: activityId } })
+        }
+        catch (err) {
+          console.error(err);
+          return { ok: false, message: 'Activity was not removed' };
+        }
+
+        return { ok: true, message: 'Activity removed ' };
       }
-      throw new AuthenticationError(
-        "Error! You need to be logged in to delete your activity!"
-      );
+
+      throw new AuthenticationError('You need to be logged in!');
     },
+
     removeComment: async (parent, { activityId, comment }, context) => {
       if (context.user) {
-        return Activity.findOneAndUpdate(
-          { _id: activityId },
-          { $pull: { comments: comment } },
-          { new: true }
-        );
+        try {
+          return Activity.findByIdAndUpdate(activityId,
+            { $pull: { comments: comment } },
+          );
+        }
+        catch (err) {
+          console.error(err);
+          return { ok: false, message: 'Comment was not removed' };
+        }
       }
-      throw new AuthenticationError("You need to be logged in!");
-    },
+      throw new AuthenticationError('You need to be logged in!');
+    }
   },
 };
 

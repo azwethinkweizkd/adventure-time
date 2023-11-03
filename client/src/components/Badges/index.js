@@ -13,50 +13,54 @@ import { QUERY_SINGLE_PROFILE, QUERY_ME } from "../../utils/queries";
 import { REMOVE_ACTIVITY } from "../../utils/mutations";
 
 const Badges = ({ activities, isLoggedInUser = false }) => {
-  const { profileId } = useParams();
+    const { profileId } = useParams();
 
-  const { loading, data } = useQuery(
-    profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
-    {
-      variables: { profileId: profileId },
-    }
-  );
+    const { loading, data } = useQuery(
+        profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
+        {
+            variables: { profileId: profileId },
+        }
+    );
 
-  const profile = data?.me || data?.profile || {};
+    const profile = data?.me || data?.profile || {};
 
-  const [removeActivity, { error }] = useMutation(REMOVE_ACTIVITY, {
-    update(cache, { data: { removeActivity } }) {
-      try {
-        cache.writeQuery({
-          query: QUERY_ME,
-          data: { me: removeActivity },
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    },
-  });
+    const [removeActivity, { error }] = useMutation(REMOVE_ACTIVITY, {
+        update(cache, { data: { removeActivity } }) {
+            try {
+                cache.writeQuery({
+                    query: QUERY_ME,
+                    data: { me: removeActivity },
+                });
+            } catch (e) {
+                console.error(e);
+            }
+        },
 
-  const handleRemoveActivity = async (activityData) => {
-    console.log(activityData);
-    try {
-      const { data } = await removeActivity({
-        variables: { activityData },
-      });
-    } catch (err) {
-      console.error("wont remove");
-      console.error(err);
-    }
-  };
+    });
 
-  const badgeDisplay = (activity) => {
-    for (let i = 0; i < badgeData.length; i++) {
-      const element = badgeData[i];
-      if (activity.title === element.name) {
-        return `${element.image}`;
-      }
-    }
-  };
+    const handleRemoveActivity = async (activityData) => {
+        const activityId = activityData._id;
+
+        try {
+            const { data } = await removeActivity({
+                variables: { activityId }
+            });
+        } catch (e) {
+            console.error("wont remove - Error: ", e);
+        }
+
+        window.location.reload(false);
+    };
+
+    const badgeDisplay = (activity) => {
+        for (let i = 0; i < badgeData.length; i++) {
+            const element = badgeData[i];
+            if (activity.title === element.name) {
+                return `${element.image}`;
+            }
+        }
+    };
+  
   if (!activities.length) {
     return (
       <>

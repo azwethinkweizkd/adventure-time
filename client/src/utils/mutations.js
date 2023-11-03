@@ -25,15 +25,14 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_ACTIVITY = gql`
-mutation addActivity($profileId: ID!, $activityData: activityInput!){
-  addActivity(profileId: $profileId, activityData: $activityData) {
+mutation addActivity($activityData: activityInput!){
+  addActivity(activityData: $activityData) {
     _id
     name
     activities {
       title
       description
       comments 
-      createdAt
     }
   }
 }
@@ -41,12 +40,14 @@ mutation addActivity($profileId: ID!, $activityData: activityInput!){
 
 export const REMOVE_ACTIVITY = gql`
 mutation removeActivity($activityId: ID!) {
-  removeActivity(activityId: $activityId) {
-      _id
+  removeActivity(activityId: $activityId ) {
+    _id
+    name
+    activities {
       title
       description
       comments 
-      createdAt
+    }
   }
 }
 `;
